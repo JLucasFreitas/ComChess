@@ -12,7 +12,7 @@ public class Player
         private int SelVer;
         private int SelHorN;
 
-        void Jogada()
+        void Select()
         {
             System.Console.WriteLine("Digite a Horizontal da peça que voçe quer mexer");
             SelHor = char.Parse(Console.ReadLine());
@@ -25,6 +25,20 @@ public class Player
             {
                 System.Console.WriteLine("Posição invalida");
             }
+        }
+        void Play()
+        {
+           System.Console.WriteLine("Digite a Horizontal da peça que voçe quer mexer");
+            SelHor = char.Parse(Console.ReadLine());
+
+            System.Console.WriteLine("Digite a Vertical da peça que voçe quer mexer");
+            SelVer = int.Parse(Console.ReadLine().ToLower());
+
+            SelHorN = SelHor - 'a';
+            if(SelHorN > 7 || SelHorN < 0 || SelVer > 7 || SelVer < 0)
+            {
+                System.Console.WriteLine("Posição invalida");
+            } 
         }
         public int GetSelVer()
         {
