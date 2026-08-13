@@ -9,9 +9,14 @@ public abstract class Pieces
 {
 
     private char Hor;
+    private int HorN;
     private int Ver;
     private bool Col; //True = White | False = Black
     private bool Sta; //True = Live | False = Dead
+    void Trans()
+    {
+    HorN = Hor - 'a';
+    }
 
     public bool GetCol()
     {
@@ -37,6 +42,14 @@ public abstract class Pieces
     {
         Hor = Horizontal;
     }
+    public int GetHorN()
+    {
+        return HorN;
+    }
+    public void SetHorN(int HorizontalNum)
+    {
+        HorN = HorizontalNum;
+    }
     public int GetVer()
     {
         return Ver;
@@ -46,7 +59,7 @@ public abstract class Pieces
         Ver = Vertical;
     }
 
-    public abstract void Movimentar(char HorMov , int VerMov);
+    public abstract void Movimentar(int GetHorMovN , int GetVerMov);
 
 }
 
