@@ -5,30 +5,34 @@ namespace ComChess
     
     public class Rook : Pieces
     {
-        public override void Movimentar(int GetHorMovN , int GetVerMov)
+        public override void Movimentar(int GetHorMovN, int GetVerMov)
         {
-         while(SelVer < 8)
-         {
-            SelVer = SelVer - 1;
+        int PosVerfVer;
+        int PosVerfHor;
 
-            if(PosTab[SelHor , SelVer] == null)
-            {
-                MovPos[SelHor , SelVer] = true;
-            }
+        PosVerfVer = GetSelVer;
+        PosVerfHor = GetSelHorN;
+
+        while(PosVerfVer < 8)
+        {
+        PosVerfVer = GetSelVer - 1;
+        GetSelVer = GetSelVer - 1;
+
+            if(PosTab[GetSelHorN, PosVerfVer] == null)
+                MovPos[GetSelHorN, PosVerfVer] = true;
             else
             {
-                if(PosTab[SelHor , SelVer].GetCol == CollorPly )
-                    continue;
-
+            if(PosTab[GetSelHorN, GetSelVer].GetCol() == GetColPly)
+                continue;
+            else
+            {
+                if(PosTab[GetSelHorN, PosVerfVer] is King)
+                    Xeque = true;
                 else
-                {
-                    
-                    if()
-
-                }
+                    Comer();
             }
-         }
+            }
+        }
         }
     }
-    
 }
