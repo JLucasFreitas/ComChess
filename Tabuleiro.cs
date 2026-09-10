@@ -28,6 +28,7 @@ namespace ComChess
             RookW1.SetSta(true);
             RookW1.SetHorN(0);
             RookW1.SetVer(0);
+            RookW1.SetMovPast(false);
             PosTab[0,0] = RookW1;
         }
         void RookW2Start()
@@ -36,6 +37,7 @@ namespace ComChess
             RookW2.SetSta(true);
             RookW2.SetHorN(7);
             RookW2.SetVer(0);
+            RookW2.SetMovPast(false);
             PosTab[7,0] = RookW2;
         }
         void RookB1Start()
@@ -44,6 +46,7 @@ namespace ComChess
             RookB1.SetSta(true);
             RookB1.SetHorN(0);
             RookB1.SetVer(7);
+            RookB1.SetMovPast(false);
             PosTab[0,7] = RookB1;
         }
         void RookB2Start()
@@ -52,6 +55,7 @@ namespace ComChess
             RookB2.SetSta(true);
             RookB2.SetHorN(7);
             RookB2.SetVer(7);
+            RookB2.SetMovPast(false);
             PosTab[7,7] = RookB2;
         }
         //Rook---------------------------------------------------------------------------------------------------------------
@@ -68,6 +72,7 @@ namespace ComChess
             BishopW1.SetSta(true);
             BishopW1.SetHorN(2);
             BishopW1.SetVer(0);
+            BishopW1.SetMovPast(false);
             PosTab[2,0] = BishopW1;
         }
         void BishopW2Start()
@@ -76,6 +81,7 @@ namespace ComChess
             BishopW2.SetSta(true);
             BishopW2.SetHorN(5);
             BishopW2.SetVer(0);
+            BishopW2.SetMovPast(false);
             PosTab[5,0] = BishopW2;
         }
         void BishopB1Start()
@@ -84,6 +90,7 @@ namespace ComChess
             BishopB1.SetSta(true);
             BishopB1.SetHorN(2);
             BishopB1.SetVer(7);
+            BishopB1.SetMovPast(false);
             PosTab[2,7] = BishopB1;
         }
         void BishopB2Start()
@@ -92,6 +99,7 @@ namespace ComChess
             BishopB2.SetSta(true);
             BishopB2.SetHorN(5);
             BishopB2.SetVer(7);
+            BishopB2.SetMovPast(false);
             PosTab[5,7] = BishopB2;
         }
         //Bishop-------------------------------------------------------------------------------------------------------------
@@ -109,6 +117,7 @@ namespace ComChess
             KnightW1.SetSta(true);
             KnightW1.SetHorN(1);
             KnightW1.SetVer(0);
+            KnightW1.SetMovPast(false);
             PosTab[1,0] = KnightW1;
        }
        void KnightW2Start()
@@ -117,6 +126,7 @@ namespace ComChess
            KnightW2.SetSta(true);
            KnightW2.SetHorN(6);
            KnightW2.SetVer(0);
+           KnightW2.SetMovPast(false);
            PosTab[6,0] = KnightW2;
        }
        void KnightB1Start()
@@ -125,6 +135,7 @@ namespace ComChess
            KnightB1.SetSta(true);
            KnightB1.SetHorN(1);
            KnightB1.SetVer(7);
+           KnightB1.SetMovPast(false);
            PosTab[1,7] = KnightB1;
        }
        void KnightB2Start()
@@ -133,6 +144,7 @@ namespace ComChess
            KnightB2.SetSta(true);
            KnightB2.SetHorN(6);
            KnightB2.SetVer(7);
+           KnightB2.SetMovPast(false);
            PosTab[6,7] = KnightB2;
        }
        //Knight--------------------------------------------------------------------------------------------------------------
@@ -146,6 +158,7 @@ namespace ComChess
            QueenW1.SetSta(true);
            QueenW1.SetHorN(3);
            QueenW1.SetVer(0);
+           QueenW1.SetMovPast(false);
            PosTab[3,0] = QueenW1;
        }
        void QueenB1Start()
@@ -154,6 +167,7 @@ namespace ComChess
            QueenB1.SetSta(true);
            QueenB1.SetHorN(3);
            QueenB1.SetVer(7);
+           QueenB1.SetMovPast(false);
            PosTab[3,7] = QueenB1;
        }
        //Queen---------------------------------------------------------------------------------------------------------------
@@ -167,6 +181,7 @@ namespace ComChess
            KingW.SetSta(true);
            KingW.SetHorN(4);
            KingW.SetVer(0);
+           KingW.SetMovPast(false);
            PosTab[4,0] = KingW;
        }
        void KingBStart()
@@ -175,25 +190,27 @@ namespace ComChess
            KingB.SetSta(true);
            KingB.SetHorN(4);
            KingB.SetVer(7);
+           KingB.SetMovPast(false);
            PosTab[4,7] = KingB;
        }
         //King----------------------------------------------------------------------------------------------------------------
 
         //PawnWhite-----------------------------------------------------------------------------------------------------------
-        Pawn PawnW1 = new Pawn();
-        Pawn PawnW2 = new Pawn();
-        Pawn PawnW3 = new Pawn();
-        Pawn PawnW4 = new Pawn();
-        Pawn PawnW5 = new Pawn();
-        Pawn PawnW6 = new Pawn();
-        Pawn PawnW7 = new Pawn();
-        Pawn PawnW8 = new Pawn();
+        PawnWhite PawnW1 = new PawnWhite();
+        PawnWhite PawnW2 = new PawnWhite();
+        PawnWhite PawnW3 = new PawnWhite();
+        PawnWhite PawnW4 = new PawnWhite();
+        PawnWhite PawnW5 = new PawnWhite();
+        PawnWhite PawnW6 = new PawnWhite();
+        PawnWhite PawnW7 = new PawnWhite();
+        PawnWhite PawnW8 = new PawnWhite();
        void PawnW1Start()
        {
            PawnW1.SetCol(true);
            PawnW1.SetSta(true);
            PawnW1.SetHorN(0);
            PawnW1.SetVer(1);
+           PawnW1.SetMovPast(false);
            PosTab[0,1] = PawnW1;
        }
        void PawnW2Start()
@@ -202,6 +219,7 @@ namespace ComChess
            PawnW2.SetSta(true);
            PawnW2.SetHorN(1);
            PawnW2.SetVer(1);
+           PawnW2.SetMovPast(false);
            PosTab[1,1] = PawnW2;
        }
        void PawnW3Start()
@@ -210,6 +228,7 @@ namespace ComChess
            PawnW3.SetSta(true);
            PawnW3.SetHorN(2);
            PawnW3.SetVer(1);
+           PawnW3.SetMovPast(false);
            PosTab[2,1] = PawnW3;
        }
        void PawnW4Start()
@@ -218,6 +237,7 @@ namespace ComChess
            PawnW4.SetSta(true);
            PawnW4.SetHorN(3);
            PawnW4.SetVer(1);
+           PawnW4.SetMovPast(false);
            PosTab[3,1] = PawnW4;
        }
        void PawnW5Start()
@@ -226,6 +246,7 @@ namespace ComChess
            PawnW5.SetSta(true);
            PawnW5.SetHorN(4);
            PawnW5.SetVer(1);
+           PawnW5.SetMovPast(false);
            PosTab[4,1] = PawnW5;
        }
        void PawnW6Start()
@@ -234,6 +255,7 @@ namespace ComChess
            PawnW6.SetSta(true);
            PawnW6.SetHorN(5);
            PawnW6.SetVer(1);
+           PawnW6.SetMovPast(false);
            PosTab[5,1] = PawnW6;
        }
        void PawnW7Start()
@@ -242,6 +264,7 @@ namespace ComChess
            PawnW7.SetSta(true);
            PawnW7.SetHorN(6);
            PawnW7.SetVer(1);
+           PawnW7.SetMovPast(false);
            PosTab[6,1] = PawnW7;
        }
        void PawnW8Start()
@@ -250,25 +273,27 @@ namespace ComChess
            PawnW8.SetSta(true);
            PawnW8.SetHorN(7);
            PawnW8.SetVer(1);
+           PawnW8.SetMovPast(false);
            PosTab[7,1] = PawnW8;
        }
        //PawnWhite-----------------------------------------------------------------------------------------------------------
 
        //PawnBlack-----------------------------------------------------------------------------------------------------------
-        Pawn PawnB1 = new Pawn();
-        Pawn PawnB2 = new Pawn();
-        Pawn PawnB3 = new Pawn();
-        Pawn PawnB4 = new Pawn();
-        Pawn PawnB5 = new Pawn();
-        Pawn PawnB6 = new Pawn();
-        Pawn PawnB7 = new Pawn();
-        Pawn PawnB8 = new Pawn();
+        PawnBlack PawnB1 = new PawnBlack();
+        PawnBlack PawnB2 = new PawnBlack();
+        PawnBlack PawnB3 = new PawnBlack();
+        PawnBlack PawnB4 = new PawnBlack();
+        PawnBlack PawnB5 = new PawnBlack();
+        PawnBlack PawnB6 = new PawnBlack();
+        PawnBlack PawnB7 = new PawnBlack();
+        PawnBlack PawnB8 = new PawnBlack();
        void PawnB1Start()
        {
            PawnB1.SetCol(false);
            PawnB1.SetSta(true);
            PawnB1.SetHorN(0);
            PawnB1.SetVer(6);
+           PawnB1.SetMovPast(false);
            PosTab[0,6] = PawnB1;
        }
        void PawnB2Start()
@@ -277,6 +302,7 @@ namespace ComChess
            PawnB2.SetSta(true);
            PawnB2.SetHorN(1);
            PawnB2.SetVer(6);
+           PawnB2.SetMovPast(false);
            PosTab[1,6] = PawnB2;
        }
        void PawnB3Start()
@@ -285,6 +311,7 @@ namespace ComChess
            PawnB3.SetSta(true);
            PawnB3.SetHorN(2);
            PawnB3.SetVer(6);
+           PawnB3.SetMovPast(false);
            PosTab[2,6] = PawnB3;
        }
        void PawnB4Start()
@@ -293,6 +320,7 @@ namespace ComChess
            PawnB4.SetSta(true);
            PawnB4.SetHorN(3);
            PawnB4.SetVer(6);
+           PawnB4.SetMovPast(false);
            PosTab[3,6] = PawnB4;
        }
        void PawnB5Start()
@@ -301,6 +329,7 @@ namespace ComChess
            PawnB5.SetSta(true);
            PawnB5.SetHorN(4);
            PawnB5.SetVer(6);
+           PawnB5.SetMovPast(false);
            PosTab[4,6] = PawnB5;
        }
        void PawnB6Start()
@@ -309,6 +338,7 @@ namespace ComChess
            PawnB6.SetSta(true);
            PawnB6.SetHorN(5);
            PawnB6.SetVer(6);
+           PawnB6.SetMovPast(false);
            PosTab[5,6] = PawnB6;
        }
        void PawnB7Start()
@@ -317,6 +347,7 @@ namespace ComChess
            PawnB7.SetSta(true);
            PawnB7.SetHorN(6);
            PawnB7.SetVer(6);
+           PawnB7.SetMovPast(false);
            PosTab[6,6] = PawnB7;
        }
        void PawnB8Start()
@@ -325,29 +356,10 @@ namespace ComChess
            PawnB8.SetSta(true);
            PawnB8.SetHorN(7);
            PawnB8.SetVer(6);
+           PawnB8.SetMovPast(false);
            PosTab[7,6] = PawnB8;
        } 
        //PawnBlack-----------------------------------------------------------------------------------------------------------
        
-
-       void Mover(int GetSelHorN , int GetSelVer)
-        {
-            Pieces Peca = PosTab[GetSelHorN , GetSelVer];
-
-            if(PosTab[GetSelHorN , GetSelVer] == null)
-            {
-                System.Console.WriteLine("Selecione uma posição valida");
-                Select();
-            }
-            else if(Peca.GetCol() !=  )
-            {
-                Console.WhiteLine("Selecione uma peça de mesma cor");
-                Select();
-            }
-            else 
-            {
-            Play();
-            }
-        }
     }
 }

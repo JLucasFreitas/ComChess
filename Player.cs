@@ -14,6 +14,7 @@ public class Player
         private int VerMov;
         private int SelHorN;
         private int HorMovN;
+        private string Name;
 
         public void Select()
         {
@@ -28,6 +29,7 @@ public class Player
             if(SelHorN < 0 || SelHorN > 7 || SelVer < 0 || SelVer > 7)
             {
                 System.Console.WriteLine("Selecione uma posição valida");
+                Select();
             }
         }
         public void Play()
@@ -43,6 +45,7 @@ public class Player
             if(SelHorN < 0 || SelHorN > 7 || SelVer < 0 || SelVer > 7)
             {
                 System.Console.WriteLine("Selecione uma posição valida");
+                Play();
             }
         }
 
