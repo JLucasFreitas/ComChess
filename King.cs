@@ -3,6 +3,7 @@ namespace ComChess
 {
     public class King : Pieces
     {
+        int [,] MovKing = new int[8,8];
         public override void MovementPossible(int GetSelHorN , int GetSelVer , Pieces[,]PosTab , int[,] MovPos , bool GetColPly)        
         {
         int PosVerfVer = 0;
@@ -63,10 +64,12 @@ namespace ComChess
             else
                 break;
             }
-            PosVerfVer = GetSelVer;
-            PosVerfHor = GetSelHorN;
-            if(PosTab[PosVerfHor , PosVerfVer].GetMovPast() == false)
-                MovPos[PosVerfHor , PosVerfVer - 2] = 3;
+            
+            if(PosTab[PosVerfHor , PosVerfVer] is Rook){
+            if(PosTab[PosVerfHor , PosVerfVer].GetMovPast() == false){
+                PosVerfVer = GetSelVer;
+                PosVerfHor = GetSelHorN;
+                MovPos[PosVerfHor , PosVerfVer - 2] = 3;}}
 
         }
 
@@ -81,10 +84,12 @@ namespace ComChess
             else
                 break;
             }
-            PosVerfVer = GetSelVer;
-            PosVerfHor = GetSelHorN;
-            if(PosTab[PosVerfHor , PosVerfVer].GetMovPast() == false)
-                MovPos[PosVerfHor , PosVerfVer + 2] = 4;
+            
+            if(PosTab[PosVerfHor , PosVerfVer] is Rook){
+            if(PosTab[PosVerfHor , PosVerfVer].GetMovPast() == false){
+                PosVerfVer = GetSelVer;
+                PosVerfHor = GetSelHorN;
+                MovPos[PosVerfHor , PosVerfVer + 2] = 4;}}
 
         }
 

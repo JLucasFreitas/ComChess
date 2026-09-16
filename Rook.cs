@@ -12,7 +12,7 @@ namespace ComChess
             {
             PosVerfVer = PosVerfVer - 1;
             if(Check(PosVerfHor , PosVerfVer , PosTab , MovPos , GetColPly) != 0)
-            break;
+                break;
             }
         }
         //South
@@ -24,7 +24,7 @@ namespace ComChess
             {
             PosVerfVer = PosVerfVer + 1;
             if(Check(PosVerfHor , PosVerfVer , PosTab , MovPos , GetColPly) != 0)
-            break;
+                break;
             }
         }
         //North
@@ -35,8 +35,8 @@ namespace ComChess
             while(PosVerfHor > 0)
             {
             PosVerfHor = PosVerfHor - 1;
-            if(Check(PosVerfHor , PosVerfVer , PosTab , MovPos , GetColPly) != 0)
-            break;
+            if(Check(GetSelHorN , GetSelVer , PosVerfHor , PosVerfVer , PosTab , MovPos , GetColPly) != 0)
+                break;
             }
         }
         //West
@@ -48,7 +48,7 @@ namespace ComChess
             {
             PosVerfHor = PosVerfHor + 1;
             if(Check(PosVerfHor , PosVerfVer , PosTab , MovPos , GetColPly) != 0)
-            break;
+                break;
             }
         }
         //East
