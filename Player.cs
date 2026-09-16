@@ -49,6 +49,29 @@ public class Player
             }
         }
 
+        public void SelectPiece(Pieces[,]PosTab)
+        {
+        int i = 0;
+        do
+        {
+        Select();
+        if(PosTab[GetSelHorN() , GetSelVer()] == null)
+        {
+            Console.WriteLine("Escolha uma posição não nula");
+            i = 1; 
+        }
+
+        else if(PosTab[GetSelHorN() , GetSelVer()].GetCol() != GetColPly())
+        {
+            Console.WriteLine("Escolha uma peça da mesma cor");
+            i = 1;
+        }
+        else
+        i = 0;
+        }while(i == 1);
+
+        }
+
 
         public int GetSelVer()
         {

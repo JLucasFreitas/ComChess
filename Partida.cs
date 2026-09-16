@@ -8,51 +8,93 @@ namespace ComChess
     Player PlyB = new Player();
     int[,] MovPos = new int [8,8];
     int[,] MovPosNulo = new int[8,8];
+    Tabuleiro TabMov = new Tabuleiro();
+    Pieces PieceCheck = new Pieces();
 
 
     void PlayerWhite()
     {
         PlyW.SetColPly(true);
-        SelHor = PlyW.GetSelHorN();
-        SelVer = PlyW.GetSelVer();
-        HorMov = PlyW.GetHorMovN();
-        VerMov =PlyW.GetVerMov();
     }
 
     void PlayerBlack()
     {
         PlyB.SetColPly(false);
-        SelHor = PlyB.GetSelHorN();
-        SelVer = PlyB.GetSelVer();
-        HorMov = PlyB.GetHorMovN();
-        VerMov = PlyB.GetVerMov();
     }
     
-    void PlayerWhiteMov(Pieces[,]PosTab , int GetSelHorN , int GetSelVer)
+    void PlayerWhiteMov(Pieces[,]PosTab , int GetSelHorN , int GetSelVer , int GetHorMovN , int GetVerMov , bool GetColPly , Player PlyG)
     {
 
-        PlyW.Select();
-        PlyW.GetSelHorN();
-        PlyW.GetSelVer();
-        if(PosTab[GetSelHorN , GetSelVer] == null)
+        PlyG = PlyW;
+
+        PlyG.SelectPiece(PosTab);
+
+        TabMov.Movement(GetHorMovN ,  GetVerMov , GetSelHorN , GetSelVer , MovPos , GetColPly , PlyG);
+
+    }
+
+    void PlayerBlackMov(Pieces[,]PosTab , int GetSelHorN , int GetSelVer , int GetHorMovN , int GetVerMov , bool GetColPly , Player PlyG)
+    {
+
+        PlyG = PlyB;
+
+        PlyG.SelectPiece(PosTab);
+
+        TabMov.Movement(GetHorMovN ,  GetVerMov , GetSelHorN , GetSelVer , MovPos , GetColPly , PlyG);
+
+    }
+
+    void Fluxo()
+    {
+
+        while(XequeMate == false)
         {
-            Console.WriteLine("Escolha uma posição não nula");
-            PlayerWhiteMov(PosTab , GetSelHorN , GetSelVer);
+
+            PlayerWhiteMov(PosTab , GetSelHorN , GetSelVer , GetHorMovN , GetVerMov , GetColPly , PlyG);
+
+            PlayerBlackMov(PosTab , GetSelHorN , GetSelVer , GetHorMovN , GetVerMov , GetColPly , PlyG);
+
         }
 
-        if(PosTab[GetSelHorN , GetSelVer].GetCol() != PlyW.GetColPly())
+    }
+
+    bool VerfXeque(int GetSelHorN , int GetSelVer , Pieces[,]PosTab , int PosVerfHor , int PosVerfVer , bool GetColPly)
+    {
+
+        int VerfXequeHor = 0;
+        int VerfXequeVer = 0;
+        bool Exit;
+
+        while(VerfXequeVer <= 7)
         {
-            Console.WriteLine("Escolha uma peça da mesma cor");
-            PlayerWhiteMov(PosTab , GetSelHorN , GetSelVer);
+
+            PosTab[VerfXequeHor , VerfXequeVer].MovementPossible(GetSelHorN , GetSelVer , PosTab , MovPos , GetColPly);
+            if(Check(PosVerfHor , PosVerfVer , PosTab , MovPos , GetColPly) != 1){
+                Exit = true;
+                return Exit;}
+
+            VerfXequeHor++;
+            if(VerfXequeHor == 8)
+            {
+            VerfXequeVer++; 
+            VerfXequeHor = 0;
+            }
+
         }
 
-
+        if(Exit != true){
+        Exit = false;
+        return Exit;}
 
     }
 
 
     static void Main()
-    {
+    {   
+        Partida PartMov = new Partida();
+        Tabuleiro TabStart = new Tabuleiro();
+
+        TabStart.TabStart();
 
     }
  
