@@ -12,7 +12,6 @@ public abstract class Pieces
     private int HorN;
     private int Ver;
     private bool Col; //True = White | False = Black
-    private bool Sta; //True = Live | False = Dead
     private bool MovPast; //True = Move | False = No move
     void Trans()
     {
@@ -26,14 +25,6 @@ public abstract class Pieces
     public void SetCol(bool Collor)
     {
     Col = Collor;
-    }
-    public bool GetSta()
-    {
-        return Sta;
-    }
-    public void SetSta(bool State)
-    {
-    Sta = State;
     }
     public char GetHor()
     {

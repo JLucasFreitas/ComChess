@@ -3,6 +3,18 @@ namespace ComChess
 {
     public class PawnWhite : Pieces
     {
+        private int EnPassantW = 0;
+
+        public int GetEnPassantW()
+        {
+        return EnPassantW;
+        }
+
+        public void SetEnPassantW(int EnPassantWhite)
+        {
+        EnPassantW = EnPassantWhite;
+        }
+
         public void Promocao(int PosVerfHor , int PosVerfVer , Pieces[,]PosTab)
         {
             int Choice = 0;
@@ -111,6 +123,12 @@ namespace ComChess
             if(PosVerfHor >= 0 && PosVerfHor <= 7 && PosVerfVer >= 0 && PosVerfVer <= 7){
             if(PosTab [PosVerfHor , PosVerfVer] != null)
                 Check(PosVerfHor , PosVerfVer , PosTab , MovPos , GetColPly);}
+
+            if(EnPassantW == 1)
+            MovPos[GetSelHorN - 1 , GetSelVer + 1] = 6;
+
+            if(EnPassantW == 2)
+            MovPos[GetSelHorN + 1 , GetSelVer + 1] = 7;
 
         }
     }
