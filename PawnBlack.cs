@@ -3,6 +3,18 @@ namespace ComChess
 {
     public class PawnBlack : Pieces
     {
+        private int EnPassantB = 0;
+
+        public int GetEnPassantB()
+        {
+        return EnPassantB;
+        }
+
+        public void SetEnPassantB(int EnPassantBlack)
+        {
+        EnPassantB = EnPassantBlack;
+        }
+
         PawnWhite Promo = new PawnWhite();
         public override void MovementPossible(int GetSelHorN , int GetSelVer , Pieces[,]PosTab , int[,] MovPos , bool GetColPly)
         {
@@ -52,6 +64,11 @@ namespace ComChess
             if(PosTab [PosVerfHor , PosVerfVer] != null)
                 Check(PosVerfHor , PosVerfVer , PosTab , MovPos , GetColPly);}
 
+            if(EnPassantB == 1)
+            MovPos[GetSelHorN - 1 , GetSelVer - 1] = 6;
+
+            if(EnPassantB == 2)
+            MovPos[GetSelHorN + 1 , GetSelVer - 1] = 7;
         }
     }
-}
+}    
