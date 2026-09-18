@@ -5,53 +5,23 @@ namespace ComChess
     
     public class Rook : Pieces
     {
-        //South
-        public void South(int PosVerfHor , int PosVerfVer , Pieces[,] PosTab , int[,] MovPos , bool GetColPly)
+        void Directions(int HorizontalDirections , int VerticalDirections)
         {
-            while(PosVerfVer > 0)
+
+            while(PosVerfHor + HorizontalDirections >= 0 && 
+            PosVerfHor+ HorizontalDirections <= 7 && 
+            PosVerfVer + VerticalDirections >= 0 && 
+            PosVerfVer + VerticalDirections <= 7)
             {
-            PosVerfVer = PosVerfVer - 1;
+            PosVerfHor = PosVerfHor + HorizontalDirections;
+            PosVerfVer = PosVerfVer + VerticalDirections;
+
             if(Check(PosVerfHor , PosVerfVer , PosTab , MovPos , GetColPly) != 0)
                 break;
             }
         }
-        //South
 
-        //North
-        public void North(int PosVerfHor , int PosVerfVer , Pieces[,] PosTab , int[,] MovPos , bool GetColPly)
-        {
-            while(PosVerfVer < 7)
-            {
-            PosVerfVer = PosVerfVer + 1;
-            if(Check(PosVerfHor , PosVerfVer , PosTab , MovPos , GetColPly) != 0)
-                break;
-            }
-        }
-        //North
-
-        //West
-        public void West(int PosVerfHor , int PosVerfVer , Pieces[,] PosTab , int[,] MovPos , bool GetColPly)
-        {
-            while(PosVerfHor > 0)
-            {
-            PosVerfHor = PosVerfHor - 1;
-            if(Check(GetSelHorN , GetSelVer , PosVerfHor , PosVerfVer , PosTab , MovPos , GetColPly) != 0)
-                break;
-            }
-        }
-        //West
-
-        //East
-        public void East(int PosVerfHor , int PosVerfVer , Pieces[,] PosTab , int[,] MovPos , bool GetColPly)
-        {
-            while(PosVerfHor < 7)
-            {
-            PosVerfHor = PosVerfHor + 1;
-            if(Check(PosVerfHor , PosVerfVer , PosTab , MovPos , GetColPly) != 0)
-                break;
-            }
-        }
-        //East
+       
 
         public override void MovementPossible(int GetSelHorN , int GetSelVer , Pieces[,]PosTab , int[,] MovPos , bool GetColPly)
         {
