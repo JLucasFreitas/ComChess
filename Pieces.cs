@@ -1,82 +1,38 @@
 ﻿using System;
 
 namespace ComChess
-
 {
 
 public abstract class Pieces
 
 {
 
-    private char Hor;
-    private int HorN;
-    private int Ver;
-    private bool Col; //True = White | False = Black
-    private bool MovPast; //True = Move | False = No move
+    public char Hor {get; set;}
+    public int HorN {get; set;}
+    public int Ver {get; set;}
+    public bool Col {get; set;} //True = White | False = Black
+    public bool MovPast {get; set;} //True = Move | False = No move
     void Trans()
     {
     HorN = Hor - 'a';
     }
 
-    public bool GetCol()
-    {
-    return Col;
-    } 
-    public void SetCol(bool Collor)
-    {
-    Col = Collor;
-    }
-    public char GetHor()
-    {
-        return Hor;
-    }
-    public void SetHor(char Horizontal)
-    {
-    Hor = Horizontal;
-    }
-    public int GetHorN()
-    {
-    return HorN;
-    }
-    public void SetHorN(int HorizontalNum)
-    {
-    HorN = HorizontalNum;
-    }
-    public int GetVer()
-    {
-    return Ver;
-    } 
-    public void SetVer(int Vertical)
-    {
-    Ver = Vertical;
-    }
-    public bool GetMovPast()
-    {
-    return MovPast;
-    }
-    public void SetMovPast(bool MovimentoAnterior)
-    {
-    MovPast = MovimentoAnterior;
-    }
+    public abstract void MovementPossible(int SelHorN , int SelVer , Pieces[,]PosTab , int[,] MovPos , bool ColPly);
 
-    public abstract void MovementPossible(int GetSelHorN , int GetSelVer , Pieces[,]PosTab , int[,] MovPos , bool GetColPly);
-
-    protected int Check(int GetSelHorN , int GetSelVer , int PosVerfHor , int PosVerfVer , Pieces[,] PosTab , int[,] MovPos , int[,] MovKing , bool GetColPly)
+    protected int Check(int PosVerfHor , int PosVerfVer , Pieces[,] PosTab , int[,] MovPos , bool ColPly)
     {
     int Exit = 0;
     if(PosTab[PosVerfHor , PosVerfVer] == null)
-        if(PosTab[GetSelHorN , GetSelVer] is King){
-            MovKing[PosVerfHor , PosVerfVer] = 5;}
         MovPos[PosVerfHor , PosVerfVer] = 1;
     else
     {
-        if(PosTab[PosVerfHor , PosVerfVer].GetCol() == GetColPly)
+        if(PosTab[PosVerfHor , PosVerfVer].Col == ColPly)
             Exit = 1;
         else
         {
             if(PosTab[PosVerfHor , PosVerfVer] is King)
                 {
-                     if(PosTab[PosVerfHor , PosVerfVer].GetCol() == true)
+                     if(PosTab[PosVerfHor , PosVerfVer].Col == true)
                         Exit = 2;
                     else
                         Exit = 3;
@@ -91,14 +47,37 @@ public abstract class Pieces
             return Exit;
     }
 
-    protected void InTab(int PosVerfHor , int PosVerfVer , Pieces[,]PosTab , int[,] MovPos , bool GetColPly)
+    protected void InTab(int PosVerfHor , int PosVerfVer , Pieces[,]PosTab , int[,] MovPos , bool ColPly)
     {
     if(PosVerfHor >= 0 && PosVerfHor <= 7 && PosVerfVer >= 0 && PosVerfVer <= 7)
         {
-        Check(PosVerfHor , PosVerfVer , PosTab , MovPos , GetColPly);
+        Check(PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
         }
     }
 
+    protected void DirectionsContinuos(int HorizontalDirections , int VerticalDirections , int PosVerfHor , int PosVerfVer , Pieces[,] PosTab , int[,] MovPos , bool ColPly)
+    {
+
+        while(PosVerfHor + HorizontalDirections >= 0 && 
+        PosVerfHor+ HorizontalDirections <= 7 && 
+        PosVerfVer + VerticalDirections >= 0 && 
+        PosVerfVer + VerticalDirections <= 7)
+        {
+        PosVerfHor = PosVerfHor + HorizontalDirections;
+        PosVerfVer = PosVerfVer + VerticalDirections;
+
+        if(Check(PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly) != 0)
+            break;
+        }
+    }
+
+    protected void Directions(int HorizontalDirections , int VerticalDirections , int PosVerfHor , int PosVerfVer , Pieces[,] PosTab , int[,] MovPos , bool ColPly)
+    {
+        PosVerfHor = PosVerfHor + HorizontalDirections;
+        PosVerfVer = PosVerfVer + VerticalDirections;
+
+        InTab(PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
+    }
 }
 
 }

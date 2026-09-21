@@ -5,31 +5,23 @@ namespace ComChess
 {
     public class Tabuleiro
     {
-        Pieces[,] PosTab = new Pieces[8 , 8];
+        public Pieces[,] PosTab {get; set;} = new Pieces[8 , 8];
 
-        public Pieces [,] GetPosTab()
-        {
-            return PosTab;
-        }
-        public void SetPosTab(Pieces [,] SetterPosTab)
-        {
-            PosTab = SetterPosTab;
-        }
 
-        void EnPassantNulo(Pieces[,]PosTab , bool GetColPly)
+        void EnPassantNulo(Pieces[,]PosTab , bool ColPly)
         {
             int EnPassantHorNulo = 0;
             int EnPassantVerNulo = 1;
 
             while(EnPassantVerNulo <= 6)
             {
-                if(GetColPly == false){
+                if(ColPly == false){
                 if(PosTab[EnPassantHorNulo , EnPassantVerNulo] is PawnBlack)
-                ((PawnBlack)PosTab[EnPassantHorNulo , EnPassantVerNulo]).SetEnPassantB(0);}
+                ((PawnBlack)PosTab[EnPassantHorNulo , EnPassantVerNulo]).EnPassantB = 0;}
 
                 else{
                 if(PosTab[EnPassantHorNulo , EnPassantVerNulo] is PawnWhite)
-                ((PawnWhite)PosTab[EnPassantHorNulo , EnPassantVerNulo]).SetEnPassantW(0);}
+                ((PawnWhite)PosTab[EnPassantHorNulo , EnPassantVerNulo]).EnPassantW = 0;}
 
                 EnPassantHorNulo++;
                 if(EnPassantHorNulo == 8)
@@ -61,41 +53,41 @@ namespace ComChess
         }
         }
 
-        void EnPassant(int GetHorMovN, int GetVerMov, int GetSelVer, Pieces[,] PosTab)
+        void EnPassant(int HorMovN, int VerMov, int SelVer, Pieces[,] PosTab)
         {
-            if(PosTab[GetHorMovN, GetVerMov] is PawnWhite)
+            if(PosTab[HorMovN, VerMov] is PawnWhite)
             {
-                if(GetVerMov == GetSelVer + 2)
+                if(VerMov == SelVer + 2)
                 {
-                    if(GetHorMovN + 1 < 8)
+                    if(HorMovN + 1 < 8)
                     {
-                        if(PosTab[GetHorMovN + 1, GetVerMov] is PawnBlack)
-                            ((PawnBlack)PosTab[GetHorMovN + 1 , GetVerMov]).SetEnPassantB(1);
+                        if(PosTab[HorMovN + 1, VerMov] is PawnBlack)
+                            ((PawnBlack)PosTab[HorMovN + 1 , VerMov]).EnPassantB = 1;
                     }
 
-                    if(GetHorMovN - 1 >= 0)
+                    if(HorMovN - 1 >= 0)
                     {
-                        if(PosTab[GetHorMovN - 1, GetVerMov] is PawnBlack)
-                            ((PawnBlack)PosTab[GetHorMovN - 1 , GetVerMov]).SetEnPassantB(2);
+                        if(PosTab[HorMovN - 1, VerMov] is PawnBlack)
+                            ((PawnBlack)PosTab[HorMovN - 1 , VerMov]).EnPassantB = 2;
                     }
                 }
             }
         
 
-        if(PosTab[GetHorMovN, GetVerMov] is PawnBlack)
+        if(PosTab[HorMovN, VerMov] is PawnBlack)
         {
-            if(GetVerMov == GetSelVer - 2)
+            if(VerMov == SelVer - 2)
             {
-                if(GetHorMovN + 1 < 8)
+                if(HorMovN + 1 < 8)
                 {
-                    if(PosTab[GetHorMovN + 1, GetVerMov] is PawnWhite)
-                    ((PawnWhite)PosTab[GetHorMovN + 1 , GetVerMov]).SetEnPassantW(1);
+                    if(PosTab[HorMovN + 1, VerMov] is PawnWhite)
+                    ((PawnWhite)PosTab[HorMovN + 1 , VerMov]).EnPassantW = 1;
                 }
 
-                if(GetHorMovN - 1 >= 0)
+                if(HorMovN - 1 >= 0)
                 {
-                    if(PosTab[GetHorMovN - 1, GetVerMov] is PawnWhite)
-                    ((PawnWhite)PosTab[GetHorMovN - 1 , GetVerMov]).SetEnPassantW(2);
+                    if(PosTab[HorMovN - 1, VerMov] is PawnWhite)
+                    ((PawnWhite)PosTab[HorMovN - 1 , VerMov]).EnPassantW = 2;
                 }
             }
         }
@@ -104,10 +96,10 @@ namespace ComChess
         void PosPiece(Pieces peca , bool CollorPeca , int HorizontalPeca , int VerticalPeca)
         {
 
-            peca.SetCol(CollorPeca);
-            peca.SetHorN(HorizontalPeca);
-            peca.SetVer(VerticalPeca);
-            peca.SetMovPast(false);
+            peca.Col = CollorPeca;
+            peca.HorN = HorizontalPeca;
+            peca.Ver = VerticalPeca;
+            peca.MovPast = false;
 
             PosTab[HorizontalPeca , VerticalPeca] = peca;
 
@@ -118,9 +110,9 @@ namespace ComChess
 
             PosTab[MovementHorizontal , MovementVertical] = PosTab[SelectHorizontal , SelectVertical];
             PosTab[SelectHorizontal , SelectVertical] = null;
-            PosTab[MovementHorizontal , MovementVertical].SetMovPast(true);
-            PosTab[MovementHorizontal , MovementVertical].SetHorN(MovementHorizontal);
-            PosTab[MovementHorizontal , MovementVertical].SetVer(MovementVertical);
+            PosTab[MovementHorizontal , MovementVertical].MovPast = true;
+            PosTab[MovementHorizontal , MovementVertical].HorN = MovementHorizontal;
+            PosTab[MovementHorizontal , MovementVertical].Ver = MovementVertical;
 
         }
 
@@ -155,79 +147,79 @@ namespace ComChess
 
         }
 
-       public void Movement(int GetHorMovN , int GetVerMov , int GetSelHorN , int GetSelVer , int[,] MovPos , bool GetColPly , Player PlyG)
+       public void Movement(int HorMovN , int VerMov , int SelHorN , int SelVer , int[,] MovPos , bool ColPly , Player PlyG)
         {
 
-        PosTab[GetSelHorN , GetSelVer].MovementPossible(GetSelHorN , GetSelVer , PosTab , MovPos , GetColPly);
+        PosTab[SelHorN , SelVer].MovementPossible(SelHorN , SelVer , PosTab , MovPos , ColPly);
         PlyG.Play();
-        GetHorMovN = PlyG.GetHorMovN();
-        GetVerMov = PlyG.GetVerMov();
+        HorMovN = PlyG.HorMovN;
+        VerMov = PlyG.VerMov;
 
-        if(MovPos[GetHorMovN , GetVerMov] == 1 || MovPos[GetHorMovN , GetVerMov] == 2)
+        if(MovPos[HorMovN , VerMov] == 1 || MovPos[HorMovN , VerMov] == 2)
         {
 
-            MovimentPiece(GetHorMovN , GetVerMov , GetSelHorN , GetSelVer);
+            MovimentPiece(HorMovN , VerMov , SelHorN , SelVer);
 
-            EnPassant(GetHorMovN , GetVerMov, GetSelVer , PosTab);
+            EnPassant(HorMovN , VerMov, SelVer , PosTab);
 
 
         }
 
-        else if(MovPos[GetHorMovN , GetVerMov] == 3 && PosTab[GetSelHorN , GetSelVer].GetCol() == true)
+        else if(MovPos[HorMovN , VerMov] == 3 && PosTab[SelHorN , SelVer].Col == true)
         {
 
-            MovimentPiece(2 , 0 , GetSelHorN , GetSelVer);
+            MovimentPiece(2 , 0 , SelHorN , SelVer);
 
             MovimentPiece(3 , 0 , 0 , 0);
 
         }
 
-        else if(MovPos[GetHorMovN , GetVerMov] == 4 && PosTab[GetSelHorN , GetSelVer].GetCol() == true)
+        else if(MovPos[HorMovN , VerMov] == 4 && PosTab[SelHorN , SelVer].Col == true)
         {
 
-            MovimentPiece(6 , 0 , GetSelHorN , GetSelVer);
+            MovimentPiece(6 , 0 , SelHorN , SelVer);
 
             MovimentPiece(5 , 0 , 7 , 0);
 
         }
 
-        else if(MovPos[GetHorMovN , GetVerMov] == 3 && PosTab[GetSelHorN , GetSelVer].GetCol() == false)
+        else if(MovPos[HorMovN , VerMov] == 3 && PosTab[SelHorN , SelVer].Col == false)
         {
 
-            MovimentPiece(2 , 7 , GetSelHorN ,GetSelVer);
+            MovimentPiece(2 , 7 , SelHorN , SelVer);
 
             MovimentPiece(3 , 7 , 0 , 7);
 
         }
 
-        else if(MovPos[GetHorMovN , GetVerMov] == 4 && PosTab[GetSelHorN , GetSelVer].GetCol() == false)
+        else if(MovPos[HorMovN , VerMov] == 4 && PosTab[SelHorN , SelVer].Col == false)
         {
 
-            MovimentPiece(6 , 7 , GetSelHorN ,GetSelVer);
+            MovimentPiece(6 , 7 , SelHorN , SelVer);
 
             MovimentPiece(5 , 7 , 7 , 7);
 
         }
 
-        else if(MovPos[GetHorMovN , GetVerMov] == 6)
+        else if(MovPos[HorMovN , VerMov] == 6)
         {
 
-            MovimentPiece(GetHorMovN , GetVerMov , GetSelHorN ,GetSelVer);
-            PosTab[GetSelHorN - 1 , GetSelVer] = null;
+            MovimentPiece(HorMovN , VerMov , SelHorN ,SelVer);
+            PosTab[SelHorN - 1 , SelVer] = null;
 
         }
 
-        else if(MovPos[GetHorMovN , GetVerMov] == 7)
+        else if(MovPos[HorMovN , VerMov] == 7)
         {
 
-            MovimentPiece(GetHorMovN , GetVerMov , GetSelHorN ,GetSelVer);
-            PosTab[GetSelHorN + 1 , GetSelVer] = null; 
+            MovimentPiece(HorMovN , VerMov , SelHorN , SelVer);
+            PosTab[SelHorN + 1 , SelVer] = null; 
 
         }
 
-        if(MovPos[GetHorMovN , GetVerMov] != 0){
+        if(MovPos[HorMovN , VerMov] != 0){
         MovPosNulo(MovPos);
-        EnPassantNulo(PosTab , GetColPly);}
+        EnPassantNulo(PosTab , ColPly);}
 
 
 

@@ -7,14 +7,14 @@ namespace ComChess
 
 public class Player
     {
-        private bool ColPly;
-        private char SelHor;
-        private char HorMov;
-        private int SelVer;
-        private int VerMov;
-        private int SelHorN;
-        private int HorMovN;
-        private string Name;
+        public bool ColPly {get; set;}
+        public char SelHor {get; set;}
+        public char HorMov {get; set;}
+        public int SelVer {get; set;}
+        public int VerMov {get; set;}
+        public int SelHorN {get; set;}
+        public int HorMovN {get; set;}
+        public string Name {get; set;}
 
         public void Select()
         {
@@ -42,7 +42,7 @@ public class Player
 
             HorMovN = HorMov - 'a';
 
-            if(SelHorN < 0 || SelHorN > 7 || SelVer < 0 || SelVer > 7)
+            if(HorMovN < 0 || HorMovN > 7 || VerMov < 0 || VerMov > 7)
             {
                 System.Console.WriteLine("Selecione uma posição valida");
                 Play();
@@ -55,13 +55,13 @@ public class Player
         do
         {
         Select();
-        if(PosTab[GetSelHorN() , GetSelVer()] == null)
+        if(PosTab[SelHorN , SelVer] == null)
         {
             Console.WriteLine("Escolha uma posição não nula");
             i = 1; 
         }
 
-        else if(PosTab[GetSelHorN() , GetSelVer()].GetCol() != GetColPly())
+        else if(PosTab[SelHorN , SelVer].Col != ColPly)
         {
             Console.WriteLine("Escolha uma peça da mesma cor");
             i = 1;
@@ -72,31 +72,6 @@ public class Player
 
         }
 
-
-        public int GetSelVer()
-        {
-            return SelVer;
-        }
-        public int GetVerMov()
-        {
-            return VerMov;
-        }
-        public int GetSelHorN()
-        {
-            return SelHorN;
-        }
-        public int GetHorMovN()
-        {
-            return HorMovN;
-        }
-        public bool GetColPly()
-        {
-            return ColPly;
-        } 
-        public void SetColPly(bool CollorPly)
-        {
-            ColPly = CollorPly;
-        }
     }
 
 }

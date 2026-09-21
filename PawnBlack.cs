@@ -3,17 +3,8 @@ namespace ComChess
 {
     public class PawnBlack : Pieces
     {
-        private int EnPassantB = 0;
+        private int EnPassantB {get ; set;} = 0;
 
-        public int GetEnPassantB()
-        {
-        return EnPassantB;
-        }
-
-        public void SetEnPassantB(int EnPassantBlack)
-        {
-        EnPassantB = EnPassantBlack;
-        }
 
         PawnWhite Promo = new PawnWhite();
         public override void MovementPossible(int GetSelHorN , int GetSelVer , Pieces[,]PosTab , int[,] MovPos , bool GetColPly)
