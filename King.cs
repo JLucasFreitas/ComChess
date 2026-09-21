@@ -4,7 +4,7 @@ namespace ComChess
     public class King : Pieces
     {
         int [,] MovKing = new int[8,8];
-        public override void MovementPossible(int GetSelHorN , int GetSelVer , Pieces[,]PosTab , int[,] MovPos , bool GetColPly)        
+        public override void MovementPossible(int SelHorN , int SelVer , Pieces[,]PosTab , int[,] MovPos , bool ColPly)        
         {
         int PosVerfVer = 0;
         int PosVerfHor = 0;

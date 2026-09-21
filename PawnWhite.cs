@@ -3,17 +3,8 @@ namespace ComChess
 {
     public class PawnWhite : Pieces
     {
-        private int EnPassantW = 0;
+        public int EnPassantW {get ; set;} = 0;
 
-        public int GetEnPassantW()
-        {
-        return EnPassantW;
-        }
-
-        public void SetEnPassantW(int EnPassantWhite)
-        {
-        EnPassantW = EnPassantWhite;
-        }
 
         public void Promocao(int PosVerfHor , int PosVerfVer , Pieces[,]PosTab)
         {
@@ -25,11 +16,10 @@ namespace ComChess
                 case 1 :
                 {
                 Queen QueenP1 = new Queen();
-                QueenP1.SetCol(PosTab[PosVerfHor , PosVerfVer].GetCol());
-                QueenP1.SetSta(true);
-                QueenP1.SetHorN(PosVerfHor);
-                QueenP1.SetVer(PosVerfVer);
-                QueenP1.SetMovPast(true);
+                QueenP1.Col = PosTab[PosVerfHor , PosVerfVer].Col;
+                QueenP1.HorN = PosVerfHor;
+                QueenP1.Ver = PosVerfVer;
+                QueenP1.MovPast = true;
                 PosTab[PosVerfHor,PosVerfVer] = QueenP1;
                 break;
                 }
@@ -37,11 +27,10 @@ namespace ComChess
                 case 2 :
                 {
                 Rook RookP1 = new Rook();
-                RookP1.SetCol(PosTab[PosVerfHor , PosVerfVer].GetCol());
-                RookP1.SetSta(true);
-                RookP1.SetHorN(PosVerfHor);
-                RookP1.SetVer(PosVerfVer);
-                RookP1.SetMovPast(true);
+                RookP1.Col = PosTab[PosVerfHor , PosVerfVer].Col;
+                RookP1.HorN = PosVerfHor;
+                RookP1.Ver = PosVerfVer;
+                RookP1.MovPast = true;
                 PosTab[PosVerfHor , PosVerfVer] = RookP1;
                 break;
                 }
@@ -49,11 +38,10 @@ namespace ComChess
                 case 3 :
                 {
                 Bishop BishopP1 = new Bishop();
-                BishopP1.SetCol(PosTab[PosVerfHor , PosVerfVer].GetCol());
-                BishopP1.SetSta(true);
-                BishopP1.SetHorN(PosVerfHor);
-                BishopP1.SetVer(PosVerfVer);
-                BishopP1.SetMovPast(true);
+                BishopP1.Col = PosTab[PosVerfHor , PosVerfVer].Col;
+                BishopP1.HorN = PosVerfHor;
+                BishopP1.Ver = PosVerfVer;
+                BishopP1.MovPast = true;
                 PosTab[PosVerfHor , PosVerfVer] = BishopP1;
                 break;
                 }
@@ -61,11 +49,10 @@ namespace ComChess
                 case 4 : 
                 {
                 Knight KnightP1 = new Knight();
-                KnightP1.SetCol(PosTab[PosVerfHor , PosVerfVer].GetCol());
-                KnightP1.SetSta(true);
-                KnightP1.SetHorN(PosVerfHor);
-                KnightP1.SetVer(PosVerfVer);
-                KnightP1.SetMovPast(true);
+                KnightP1.Col = PosTab[PosVerfHor , PosVerfVer].Col;
+                KnightP1.HorN = PosVerfHor;
+                KnightP1.Ver = PosVerfVer;
+                KnightP1.MovPast = true;
                 PosTab[PosVerfHor , PosVerfVer] = KnightP1;
                 break;
                 }
@@ -76,13 +63,10 @@ namespace ComChess
                 }
             }
         }
-        public override void MovementPossible(int GetSelHorN , int GetSelVer , Pieces[,]PosTab , int[,] MovPos , bool GetColPly)
+        public override void MovementPossible(int SelHorN , int SelVer , Pieces[,]PosTab , int[,] MovPos , bool ColPly)
         {
-            int PosVerfVer;
-            int PosVerfHor;
-
-            PosVerfVer = GetSelVer;
-            PosVerfHor = GetSelHorN;
+            int PosVerfVer = SelVer;
+            int PosVerfHor = SelHorN;
 
             PosVerfVer++;
 
@@ -92,10 +76,10 @@ namespace ComChess
             if(PosVerfVer == 7)
             Promocao(PosVerfHor , PosVerfVer , PosTab);
 
-            PosVerfVer = GetSelVer;
-            PosVerfHor = GetSelHorN;
+            PosVerfVer = SelVer;
+            PosVerfHor = SelHorN;
 
-            if(PosTab[PosVerfHor , PosVerfVer].GetMovPast() == false)
+            if(PosTab[PosVerfHor , PosVerfVer].MovPast == false)
             {
             PosVerfVer++;
             if(PosTab[PosVerfHor , PosVerfVer] == null){
@@ -106,29 +90,29 @@ namespace ComChess
                 MovPos[PosVerfHor , PosVerfVer] = 1;}
             }
 
-            PosVerfVer = GetSelVer;
-            PosVerfHor = GetSelHorN;
+            PosVerfVer = SelVer;
+            PosVerfHor = SelHorN;
 
             PosVerfVer++;
             PosVerfHor++;
 
             if(PosVerfHor >= 0 && PosVerfHor <= 7 && PosVerfVer >= 0 && PosVerfVer <= 7){
             if(PosTab [PosVerfHor , PosVerfVer] != null)
-                Check(PosVerfHor , PosVerfVer , PosTab , MovPos , GetColPly);}
+                Check(PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);}
 
-            PosVerfHor = GetSelHorN;
+            PosVerfHor = SelHorN;
 
             PosVerfHor = PosVerfHor - 1;
             
             if(PosVerfHor >= 0 && PosVerfHor <= 7 && PosVerfVer >= 0 && PosVerfVer <= 7){
             if(PosTab [PosVerfHor , PosVerfVer] != null)
-                Check(PosVerfHor , PosVerfVer , PosTab , MovPos , GetColPly);}
+                Check(PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);}
 
             if(EnPassantW == 1)
-            MovPos[GetSelHorN - 1 , GetSelVer + 1] = 6;
+            MovPos[SelHorN - 1 , SelVer + 1] = 6;
 
             if(EnPassantW == 2)
-            MovPos[GetSelHorN + 1 , GetSelVer + 1] = 7;
+            MovPos[SelHorN + 1 , SelVer + 1] = 7;
 
         }
     }
