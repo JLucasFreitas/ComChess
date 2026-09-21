@@ -49,6 +49,8 @@ public class Player
             }
         }
 
+        public void Promotion()
+
         public void SelectPiece(Pieces[,]PosTab)
         {
         int i = 0;

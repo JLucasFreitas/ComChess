@@ -47,21 +47,10 @@ public abstract class Pieces
             return Exit;
     }
 
-    protected void InTab(int PosVerfHor , int PosVerfVer , Pieces[,]PosTab , int[,] MovPos , bool ColPly)
-    {
-    if(PosVerfHor >= 0 && PosVerfHor <= 7 && PosVerfVer >= 0 && PosVerfVer <= 7)
-        {
-        Check(PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
-        }
-    }
-
     protected void DirectionsContinuos(int HorizontalDirections , int VerticalDirections , int PosVerfHor , int PosVerfVer , Pieces[,] PosTab , int[,] MovPos , bool ColPly)
     {
 
-        while(PosVerfHor + HorizontalDirections >= 0 && 
-        PosVerfHor+ HorizontalDirections <= 7 && 
-        PosVerfVer + VerticalDirections >= 0 && 
-        PosVerfVer + VerticalDirections <= 7)
+        while(InTab(PosVerfHor + HorizontalDirections , PosVerfVer + VerticalDirections))
         {
         PosVerfHor = PosVerfHor + HorizontalDirections;
         PosVerfVer = PosVerfVer + VerticalDirections;
@@ -76,7 +65,13 @@ public abstract class Pieces
         PosVerfHor = PosVerfHor + HorizontalDirections;
         PosVerfVer = PosVerfVer + VerticalDirections;
 
-        InTab(PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
+        if(InTab(PosVerfHor , PosVerfVer))
+            Check(PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
+    }
+
+    protected bool InTab(int HorizontalVerify , int VerticalVerify)
+    {
+        return HorizontalVerify >= 0 && HorizontalVerify <= 7 && VerticalVerify >= 0 && VerticalVerify <= 7;
     }
 }
 
