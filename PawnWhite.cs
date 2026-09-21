@@ -8,8 +8,6 @@ namespace ComChess
 
         public void Promocao(int PosVerfHor , int PosVerfVer , Pieces[,]PosTab)
         {
-            int Choice = 0;
-            Choice = int.Parse(Console.ReadLine());
 
             switch(Choice)
             {
@@ -68,45 +66,19 @@ namespace ComChess
             int PosVerfVer = SelVer;
             int PosVerfHor = SelHorN;
 
-            PosVerfVer++;
-
-            if(PosTab[PosVerfHor , PosVerfVer] == null)
-                MovPos[PosVerfHor , PosVerfVer] = 1;
-
-            if(PosVerfVer == 7)
-            Promocao(PosVerfHor , PosVerfVer , PosTab);
-
-            PosVerfVer = SelVer;
-            PosVerfHor = SelHorN;
-
-            if(PosTab[PosVerfHor , PosVerfVer].MovPast == false)
+            if(PosTab[PosVerfHor , PosVerfVer + 1] == null)
             {
-            PosVerfVer++;
-            if(PosTab[PosVerfHor , PosVerfVer] == null){
-                MovPos[PosVerfHor , PosVerfVer] = 1;
-
-            PosVerfVer++;
-            if(PosTab[PosVerfHor , PosVerfVer] == null)
-                MovPos[PosVerfHor , PosVerfVer] = 1;}
+                Directions(0 , 1 , PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
+                if(PosTab[PosVerfHor , PosVerfVer].MovPast == false && PosTab[PosVerfHor , PosVerfVer + 2] == null) 
+                Directions(0 , 2 , PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
             }
 
-            PosVerfVer = SelVer;
-            PosVerfHor = SelHorN;
-
-            PosVerfVer++;
-            PosVerfHor++;
-
-            if(PosVerfHor >= 0 && PosVerfHor <= 7 && PosVerfVer >= 0 && PosVerfVer <= 7){
-            if(PosTab [PosVerfHor , PosVerfVer] != null)
-                Check(PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);}
-
-            PosVerfHor = SelHorN;
-
-            PosVerfHor = PosVerfHor - 1;
             
-            if(PosVerfHor >= 0 && PosVerfHor <= 7 && PosVerfVer >= 0 && PosVerfVer <= 7){
-            if(PosTab [PosVerfHor , PosVerfVer] != null)
-                Check(PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);}
+            if(PosTab[PosVerfHor + 1 , PosVerfVer + 1] != null)
+                Directions(1 , 1 , PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
+
+            if(PosTab[PosVerfHor - 1 , PosVerfVer + 1] != null)
+                Directions(-1 , 1 , PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
 
             if(EnPassantW == 1)
             MovPos[SelHorN - 1 , SelVer + 1] = 6;
