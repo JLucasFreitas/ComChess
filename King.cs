@@ -25,53 +25,36 @@ namespace ComChess
 
         void KingRoque(int SelHorN , int SelVer , Pieces[,] PosTab , int[,] MovPos)
         {
-            int PosVerfHor = SelHorN;
-            int PosVerfVer = SelVer;
-            if(PosTab[SelHorN , SelVer].MovPast == false)
+        int PosVerfHor = SelHorN;
+        int PosVerfVer = SelVer;
+        bool QuebrarRoque = true;
+
+        void VerifyRoque(ref int PosVerfHor , int PosVerfVer , int i , ref bool QuebrarRoque)
+        {
+            if(InTab(PosVerfHor + i , PosVerfVer) && PosTab[PosVerfHor + i , PosVerfVer] is Rook && PosTab[PosVerfHor + i , PosVerfVer].MovPast == false)
+            if(i == 1){
+                MovPos[6 , PosVerfVer] = 4;
+                QuebrarRoque = false;}
+            else{
+                MovPos[2 , PosVerfVer] = 3;
+                QuebrarRoque = false;}
+            else if(InTab(PosVerfHor + i , PosVerfVer) && PosTab[PosVerfHor + i , PosVerfVer] == null)
+                PosVerfHor = PosVerfHor + i;
+            else
+                QuebrarRoque = false;
+        }
+
+        if(PosTab[PosVerfHor , PosVerfVer].MovPast == false){
+            while(QuebrarRoque)
             {
-                int j = 0;
-                int i = 1;
-                for(int k = 0 ; k < 2 ; k++)
-                {
-                while(true)
-                {
-                    PosVerfHor = PosVerfHor + i;
-                    if(InTab(PosVerfHor , PosVerfVer)){
-                    if(PosTab[PosVerfHor , PosVerfVer] == null)
-                    continue;
-                    else
-                    break;}
-
-                    else
-                    break;
-                }
-                if(InTab(PosVerfHor , PosVerfVer) && PosTab[PosVerfHor , PosVerfVer] is Rook)
-                {
-                    if(PosTab[PosVerfHor , PosVerfVer].MovPast == false)
-                    {
-                        if(PosVerfHor == 0){
-                        PosVerfVer = SelVer;
-                        PosVerfHor = SelHorN;
-                        MovPos[PosVerfHor , PosVerfVer - 2] = 3;
-                        }
-
-                        else{
-                        PosVerfVer = SelVer;
-                        PosVerfHor = SelHorN;
-                        MovPos[PosVerfHor , PosVerfVer + 2] = 4;
-                        }
-                    }
-                }
-                    if(PosVerfHor == 7)
-                    {
-                    i = -1;
-                    j = 7;
-
-                    PosVerfHor = SelHorN;
-                    PosVerfVer = SelVer;
-                    }
-                }
+            VerifyRoque(ref PosVerfHor , PosVerfVer , 1 , ref QuebrarRoque);
             }
+            QuebrarRoque = true;
+            PosVerfHor = SelHorN;
+            while(QuebrarRoque)
+            {
+            VerifyRoque(ref PosVerfHor , PosVerfVer , -1 , ref QuebrarRoque);
+            }}
         }
 
         public override void MovementPossible(int SelHorN , int SelVer , Pieces[,]PosTab , int[,] MovPos , bool ColPly)        
