@@ -31,15 +31,10 @@ public abstract class Pieces
         else
         {
             if(PosTab[PosVerfHor , PosVerfVer] is King)
-                {
-                     if(PosTab[PosVerfHor , PosVerfVer].Col == true)
-                        Exit = 2;
-                    else
-                        Exit = 3;
-                }
+                Exit = 2;
             else
             {
-                MovPos[PosVerfHor , PosVerfVer] = 2;
+                MovPos[PosVerfHor , PosVerfVer] = 1;
                 Exit = 1;
             }
         }

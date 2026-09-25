@@ -9,94 +9,32 @@ namespace ComChess
     int[,] MovPos = new int [8,8];
     int[,] MovPosNulo = new int[8,8];
     Tabuleiro TabMov = new Tabuleiro();
-    Pieces PieceCheck = new Pieces();
-
 
     void PlayerWhite()
     {
-        PlyW.SetColPly(true);
+        PlyW.ColPly = true;
     }
 
     void PlayerBlack()
     {
-        PlyB.SetColPly(false);
+        PlyB.ColPly = false;
     }
     
-    void PlayerWhiteMov(Pieces[,]PosTab , int GetSelHorN , int GetSelVer , int GetHorMovN , int GetVerMov , bool GetColPly , Player PlyG)
+    void PlayerWhiteMov(Pieces[,]PosTab , int SelHorN , int SelVer , int HorMovN , int VerMov , bool ColPly , Player PlyG)
     {
-
         PlyG = PlyW;
-
         PlyG.SelectPiece(PosTab);
-
-        TabMov.Movement(GetHorMovN ,  GetVerMov , GetSelHorN , GetSelVer , MovPos , GetColPly , PlyG);
-
+        TabMov.Movement(HorMovN ,  VerMov , SelHorN , SelVer , MovPos , ColPly , PlyG);
     }
 
-    void PlayerBlackMov(Pieces[,]PosTab , int GetSelHorN , int GetSelVer , int GetHorMovN , int GetVerMov , bool GetColPly , Player PlyG)
+    void PlayerBlackMov(Pieces[,]PosTab , int SelHorN , int SelVer , int HorMovN , int VerMov , bool ColPly , Player PlyG)
     {
-
         PlyG = PlyB;
-
         PlyG.SelectPiece(PosTab);
-
-        TabMov.Movement(GetHorMovN ,  GetVerMov , GetSelHorN , GetSelVer , MovPos , GetColPly , PlyG);
-
-    }
-
-    void Fluxo()
-    {
-
-        while(XequeMate == false)
-        {
-
-            PlayerWhiteMov(PosTab , GetSelHorN , GetSelVer , GetHorMovN , GetVerMov , GetColPly , PlyG);
-
-            PlayerBlackMov(PosTab , GetSelHorN , GetSelVer , GetHorMovN , GetVerMov , GetColPly , PlyG);
-
-        }
-
-    }
-
-    bool VerfXeque(int GetSelHorN , int GetSelVer , Pieces[,]PosTab , int PosVerfHor , int PosVerfVer , bool GetColPly)
-    {
-
-        int VerfXequeHor = 0;
-        int VerfXequeVer = 0;
-        bool Exit;
-
-        while(VerfXequeVer <= 7)
-        {
-
-            PosTab[VerfXequeHor , VerfXequeVer].MovementPossible(GetSelHorN , GetSelVer , PosTab , MovPos , GetColPly);
-            if(Check(PosVerfHor , PosVerfVer , PosTab , MovPos , GetColPly) != 1){
-                Exit = true;
-                return Exit;}
-
-            VerfXequeHor++;
-            if(VerfXequeHor == 8)
-            {
-            VerfXequeVer++; 
-            VerfXequeHor = 0;
-            }
-
-        }
-
-        if(Exit != true){
-        Exit = false;
-        return Exit;}
-
+        TabMov.Movement(HorMovN ,  VerMov , SelHorN , SelVer , MovPos , ColPly , PlyG);
     }
 
 
-    static void Main()
-    {   
-        Partida PartMov = new Partida();
-        Tabuleiro TabStart = new Tabuleiro();
 
-        TabStart.TabStart();
-
-    }
- 
     }
 }
