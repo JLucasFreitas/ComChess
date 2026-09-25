@@ -1,6 +1,4 @@
 using System;
-using System.Reflection;
-using System.Reflection.Metadata;
 
 namespace ComChess
 {
@@ -19,10 +17,10 @@ public class Player
         public void Select()
         {
             System.Console.WriteLine("Digite a Horizontal da peça que voçe quer mexer");
-            SelHor = char.Parse(Console.ReadLine());
+            SelHor = char.Parse(Console.ReadLine().ToLower());
 
             System.Console.WriteLine("Digite a Vertical da peça que voçe quer mexer");
-            SelVer = int.Parse(Console.ReadLine().ToLower());
+            SelVer = int.Parse(Console.ReadLine());
 
             SelHorN = SelHor - 'a';
 
@@ -32,13 +30,14 @@ public class Player
                 Select();
             }
         }
+
         public void Play()
         {
-           System.Console.WriteLine("Digite a Horizontal da posição que voçe quer mexer");
-            HorMov = char.Parse(Console.ReadLine());
+            System.Console.WriteLine("Digite a Horizontal da posição que voçe quer mexer");
+            HorMov = char.Parse(Console.ReadLine().ToLower());
 
             System.Console.WriteLine("Digite a Vertical da posição que voçe quer mexer");
-            VerMov = int.Parse(Console.ReadLine().ToLower());
+            VerMov = int.Parse(Console.ReadLine());
 
             HorMovN = HorMov - 'a';
 
@@ -49,7 +48,21 @@ public class Player
             }
         }
 
-        public void Promotion()
+        public int PromotionSelect()
+        {
+            int SelectPiecePromotion = 0;
+
+            System.Console.WriteLine("Escolha a peça para qual voçê quer transformar 1 - Torre 2 - Bispo 3 - Cavalo 4 - Rainha");
+
+            SelectPiecePromotion = int.Parse(Console.ReadLine());
+
+            if(SelectPiecePromotion >= 1 && SelectPiecePromotion <= 4)
+            {
+                return SelectPiecePromotion;
+            }
+
+            return PromotionSelect();
+        }
 
         public void SelectPiece(Pieces[,]PosTab)
         {
