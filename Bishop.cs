@@ -3,15 +3,15 @@ namespace ComChess
 {
     public class Bishop : Pieces
     {
-        public override void MovementPossible(int SelHorN , int SelVer , Pieces[,]PosTab , int[,] MovPos , bool ColPly)
+        public override void MovementPossible(int SelectionHorizontalN , int SelectionVertical , Pieces[,] PositionTab , int[,] MovementPossible , bool ColorPlayer)
         {
-            int PosVerfHor = SelHorN;
-            int PosVerfVer = SelVer;
+            int PositionVerifyfHorizontal = SelectionHorizontalN;
+            int PositionVerifyfVertical = SelectionVertical;
        
-            DirectionsContinuos(1 , -1 , PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
-            DirectionsContinuos(-1 , 1 , PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
-            DirectionsContinuos(-1 , -1 , PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
-            DirectionsContinuos(1 , 1 , PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
+            DirectionsContinuos(1 , -1 , PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer);
+            DirectionsContinuos(-1 , 1 , PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer);
+            DirectionsContinuos(-1 , -1 , PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer);
+            DirectionsContinuos(1 , 1 , PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer);
         }
     }
 }

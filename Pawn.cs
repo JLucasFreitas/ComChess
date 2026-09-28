@@ -6,77 +6,77 @@ namespace ComChess
         public int DefineCollor {get; set;} = 0;
         public bool EnPassantPossible {get; set; }
 
-        void EnPassant(int SelHorN , int SelVer , int DefineCollor , int[,] MovPos , Pieces[,] PosTab)
+        void EnPassant(int SelectionHorizontalN , int SelectionVertical , int DefineCollor , int[,] MovementPossible , Pieces[,] PositionTab)
         {
-            if(InTab(SelHorN + 1 , SelVer) && PosTab[SelHorN  + 1 , SelVer] is Pawn)
+            if(InTab(SelectionHorizontalN + 1 , SelectionVertical) && PositionTab[SelectionHorizontalN  + 1 , SelectionVertical] is Pawn)
                 {
-                Pawn PawnRight = (Pawn)PosTab[SelHorN + 1 , SelVer];
+                Pawn PawnRight = (Pawn)PositionTab[SelectionHorizontalN + 1 , SelectionVertical];
 
-                if(PosTab[SelHorN + 1 , SelVer].Col != PosTab[SelHorN , SelVer].Col && PawnRight.EnPassantPossible){
-                MovPos[SelHorN + 1 , SelVer + DefineCollor] = 6;}
+                if(PositionTab[SelectionHorizontalN + 1 , SelectionVertical].CollorPiece != PositionTab[SelectionHorizontalN , SelectionVertical].CollorPiece && PawnRight.EnPassantPossible){
+                MovementPossible[SelectionHorizontalN + 1 , SelectionVertical + DefineCollor] = 6;}
                 }
 
-                if(InTab(SelHorN - 1 , SelVer) && PosTab[SelHorN - 1 , SelVer] is Pawn)
+                if(InTab(SelectionHorizontalN - 1 , SelectionVertical) && PositionTab[SelectionHorizontalN - 1 , SelectionVertical] is Pawn)
                 {
-                Pawn PawnLeft = (Pawn)PosTab[SelHorN - 1 , SelVer];
+                Pawn PawnLeft = (Pawn)PositionTab[SelectionHorizontalN - 1 , SelectionVertical];
 
-                if(PosTab[SelHorN - 1 , SelVer].Col != PosTab[SelHorN , SelVer].Col && PawnLeft.EnPassantPossible){
-                    MovPos[SelHorN - 1 , SelVer + DefineCollor] = 6;}
+                if(PositionTab[SelectionHorizontalN - 1 , SelectionVertical].CollorPiece != PositionTab[SelectionHorizontalN , SelectionVertical].CollorPiece && PawnLeft.EnPassantPossible){
+                    MovementPossible[SelectionHorizontalN - 1 , SelectionVertical + DefineCollor] = 6;}
                 }
         }
 
-        void Promotion(int PosVerfHor , int PosVerfVer , int DefineCollor , int[,] MovPos)
+        void Promotion(int PositionVerifyfHorizontal , int PositionVerifyfVertical , int DefineCollor , int[,] MovementPossible)
         {
-            if((PosVerfVer + DefineCollor == 0 ||PosVerfVer + DefineCollor == 7) &&MovPos[PosVerfHor, PosVerfVer + DefineCollor] != 0)
+            if((PositionVerifyfVertical + DefineCollor == 0 ||PositionVerifyfVertical + DefineCollor == 7) && MovementPossible[PositionVerifyfHorizontal, PositionVerifyfVertical + DefineCollor] != 0)
             {
-                MovPos[PosVerfHor, PosVerfVer + DefineCollor] = 5;
+                MovementPossible[PositionVerifyfHorizontal , PositionVerifyfVertical + DefineCollor] = 5;
             }
         }
 
-        void MovementFrontPawn( int PosVerfHor , int PosVerfVer , int SelHorN , int SelVer , int DefineCollor , int[,] MovPos , Pieces[,] PosTab , bool ColPly)
+        void MovementFrontPawn( int PositionVerifyfHorizontal , int PositionVerifyfVertical , int SelectionHorizontalN , int SelectionVertical , int DefineCollor , int[,] MovementPossible , Pieces[,] PositionTab , bool ColorPlayer)
         {
-            if(InTab(PosVerfHor , PosVerfVer + DefineCollor) && PosTab[PosVerfHor , PosVerfVer + DefineCollor] == null)
+            if(InTab(PositionVerifyfHorizontal , PositionVerifyfVertical + DefineCollor) && PositionTab[PositionVerifyfHorizontal, PositionVerifyfVertical + DefineCollor] == null)
             {
-                Directions(0 , DefineCollor , PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
-                Promotion(PosVerfHor , PosVerfVer , DefineCollor , MovPos);
+                Directions(0 , DefineCollor , PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer);
+                Promotion(PositionVerifyfHorizontal , PositionVerifyfVertical , DefineCollor , MovementPossible);
 
-                if(PosTab[PosVerfHor , PosVerfVer].MovPast == false && PosTab[PosVerfHor , PosVerfVer + (2 * DefineCollor)] == null){
-                Directions(0 , 2 * DefineCollor , PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
-                MovPos[SelHorN , SelVer + (2 * DefineCollor)] = 2;}
+                if(PositionTab[PositionVerifyfHorizontal , PositionVerifyfVertical].MovementPast == false && PositionTab[PositionVerifyfHorizontal , PositionVerifyfVertical + (2 * DefineCollor)] == null){
+                Directions(0 , 2 * DefineCollor , PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer);
+                MovementPossible[SelectionHorizontalN , SelectionVertical + (2 * DefineCollor)] = 2;}
             }
         }
 
-        void MovementEatPawn(int PosVerfHor , int PosVerfVer , int DefineCollor , int[,] MovPos , Pieces[,] PosTab , bool ColPly)
+        void MovementEatPawn(int PositionVerifyfHorizontal , int PositionVerifyfVertical , int DefineCollor , int[,] MovementPossible , Pieces[,] PositionTab , bool ColorPlayer)
         {
-            if(InTab(PosVerfHor + 1 , PosVerfVer + DefineCollor) && PosTab[PosVerfHor + 1 , PosVerfVer + DefineCollor] != null){
-                Directions(1 , DefineCollor , PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
-                Promotion(PosVerfHor + 1 , PosVerfVer , DefineCollor , MovPos);}
+            if(InTab(PositionVerifyfHorizontal + 1 , PositionVerifyfVertical + DefineCollor) && PositionTab[PositionVerifyfHorizontal + 1 , PositionVerifyfVertical + DefineCollor] != null){
+                Directions(1 , DefineCollor , PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer);
+                Promotion(PositionVerifyfHorizontal + 1 , PositionVerifyfVertical , DefineCollor , MovementPossible);}
 
-            if(InTab(PosVerfHor - 1 , PosVerfVer + DefineCollor) && PosTab[PosVerfHor - 1 , PosVerfVer + DefineCollor] != null){
-                Directions(-1 , DefineCollor , PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
-                Promotion(PosVerfHor - 1 , PosVerfVer , DefineCollor , MovPos);}
+            if(InTab(PositionVerifyfHorizontal - 1 , PositionVerifyfVertical + DefineCollor) && PositionTab[PositionVerifyfHorizontal - 1 , PositionVerifyfVertical + DefineCollor] != null){
+                Directions(-1 , DefineCollor , PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer);
+                Promotion(PositionVerifyfHorizontal - 1 , PositionVerifyfVertical , DefineCollor , MovementPossible);}
         }
 
-        void DefineCollorMetodo(int PosVerfHor , int PosVerfVer , Pieces[,] PosTab)
+        void DefineCollorMetodo(int PositionVerifyfHorizontal , int PositionVerifyfVertical , Pieces[,] PositionTab)
         {
-            if(PosTab[PosVerfHor , PosVerfVer].Col == true)
+            if(PositionTab[PositionVerifyfHorizontal , PositionVerifyfVertical].CollorPiece == true)
             DefineCollor = 1;
             else{
             DefineCollor = -1;}
         }
 
-        public override void MovementPossible(int SelHorN , int SelVer , Pieces[,]PosTab , int[,] MovPos , bool ColPly)
+        public override void MovementPossible(int SelectionHorizontalN , int SelectionVertical , Pieces[,]PositionTab , int[,] MovementPossible , bool ColorPlayer)
         {
-            int PosVerfVer = SelVer;
-            int PosVerfHor = SelHorN;
+            int PositionVerifyfVertical = SelectionVertical;
+            int PositionVerifyfHorizontal = SelectionHorizontalN;
 
-            DefineCollorMetodo(PosVerfHor , PosVerfVer , PosTab);
+            DefineCollorMetodo(PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab);
 
-            MovementFrontPawn(PosVerfHor , PosVerfVer , SelHorN , SelVer , DefineCollor , MovPos , PosTab , ColPly);
+            MovementFrontPawn(PositionVerifyfHorizontal , PositionVerifyfVertical , SelectionHorizontalN , SelectionVertical , DefineCollor , MovementPossible , PositionTab , ColorPlayer);
 
-            MovementEatPawn(PosVerfHor , PosVerfVer , DefineCollor , MovPos , PosTab , ColPly);
+            MovementEatPawn(PositionVerifyfHorizontal , PositionVerifyfVertical , DefineCollor , MovementPossible , PositionTab , ColorPlayer);
 
-            EnPassant(SelHorN , SelVer , DefineCollor , MovPos , PosTab);
+            EnPassant(SelectionHorizontalN , SelectionVertical , DefineCollor , MovementPossible , PositionTab);
 
 
         }

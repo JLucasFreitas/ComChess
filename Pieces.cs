@@ -7,34 +7,34 @@ public abstract class Pieces
 
 {
 
-    public char Hor {get; set;}
-    public int HorN {get; set;}
-    public int Ver {get; set;}
-    public bool Col {get; set;} //True = White | False = Black
-    public bool MovPast {get; set;} //True = Move | False = No move
+    public char HorizontalPiece {get; set;}
+    public int HorizontalPieceN {get; set;}
+    public int VerticalPiece {get; set;}
+    public bool CollorPiece {get; set;} //True = White | False = Black
+    public bool MovementPast {get; set;} //True = Move | False = No move
     void Trans()
     {
-    HorN = Hor - 'a';
+    HorizontalPieceN = HorizontalPiece - 'a';
     }
 
-    public abstract void MovementPossible(int SelHorN , int SelVer , Pieces[,]PosTab , int[,] MovPos , bool ColPly);
+    public abstract void MovementPossible(int SelectionHorizontalN , int SelectionVertical , Pieces[,]PositionTab , int[,] MovementPossible , bool ColorPlayer);
 
-    protected int Check(int PosVerfHor , int PosVerfVer , Pieces[,] PosTab , int[,] MovPos , bool ColPly)
+    protected int Check(int PositionVerifyfHorizontal , int PositionVerifyfVertical , Pieces[,] PositionTab , int[,] MovementPossible , bool ColorPlayer)
     {
     int Exit = 0;
-    if(PosTab[PosVerfHor , PosVerfVer] == null)
-        MovPos[PosVerfHor , PosVerfVer] = 1;
+    if(PositionTab[PositionVerifyfHorizontal , PositionVerifyfVertical] == null)
+        MovementPossible[PositionVerifyfHorizontal , PositionVerifyfVertical] = 1;
     else
     {
-        if(PosTab[PosVerfHor , PosVerfVer].Col == ColPly)
+        if(PositionTab[PositionVerifyfHorizontal , PositionVerifyfVertical].CollorPiece == ColorPlayer)
             Exit = 1;
         else
         {
-            if(PosTab[PosVerfHor , PosVerfVer] is King)
+            if(PositionTab[PositionVerifyfHorizontal , PositionVerifyfVertical] is King)
                 Exit = 2;
             else
             {
-                MovPos[PosVerfHor , PosVerfVer] = 1;
+                MovementPossible[PositionVerifyfHorizontal , PositionVerifyfVertical] = 1;
                 Exit = 1;
             }
         }
@@ -42,26 +42,26 @@ public abstract class Pieces
             return Exit;
     }
 
-    protected void DirectionsContinuos(int HorizontalDirections , int VerticalDirections , int PosVerfHor , int PosVerfVer , Pieces[,] PosTab , int[,] MovPos , bool ColPly)
+    protected void DirectionsContinuos(int HorizontalDirections , int VerticalDirections , int PositionVerifyfHorizontal , int PositionVerifyfVertical , Pieces[,] PositionTab , int[,] MovementPossible , bool ColorPlayer)
     {
 
-        while(InTab(PosVerfHor + HorizontalDirections , PosVerfVer + VerticalDirections))
+        while(InTab(PositionVerifyfHorizontal + HorizontalDirections , PositionVerifyfVertical + VerticalDirections))
         {
-        PosVerfHor = PosVerfHor + HorizontalDirections;
-        PosVerfVer = PosVerfVer + VerticalDirections;
+        PositionVerifyfHorizontal = PositionVerifyfHorizontal + HorizontalDirections;
+        PositionVerifyfVertical = PositionVerifyfVertical + VerticalDirections;
 
-        if(Check(PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly) != 0)
+        if(Check(PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer) != 0)
             break;
         }
     }
 
-    protected void Directions(int HorizontalDirections , int VerticalDirections , int PosVerfHor , int PosVerfVer , Pieces[,] PosTab , int[,] MovPos , bool ColPly)
+    protected void Directions(int HorizontalDirections , int VerticalDirections , int PositionVerifyfHorizontal , int PositionVerifyfVertical , Pieces[,] PositionTab , int[,] MovementPossible , bool ColorPlayer)
     {
-        PosVerfHor = PosVerfHor + HorizontalDirections;
-        PosVerfVer = PosVerfVer + VerticalDirections;
+        PositionVerifyfHorizontal = PositionVerifyfHorizontal + HorizontalDirections;
+        PositionVerifyfVertical = PositionVerifyfVertical + VerticalDirections;
 
-        if(InTab(PosVerfHor , PosVerfVer))
-            Check(PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
+        if(InTab(PositionVerifyfHorizontal , PositionVerifyfVertical))
+            Check(PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer);
     }
 
     protected bool InTab(int HorizontalVerify , int VerticalVerify)
