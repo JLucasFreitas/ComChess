@@ -5,83 +5,97 @@ namespace ComChess
 {
     public class Tabuleiro
     {
-        public Pieces[,] PosTab {get; set;} = new Pieces[8 , 8];
+        public Pieces[,] PositionTab {get; set;} = new Pieces[8 , 8];
+        public Pieces[,] TabuleiroClonado {get; set;} = new Pieces[8 , 8];
 
-        void MovPosNulo(int[,] MovPos)
+        void PassarTabuleiro(int EscolhaPassarTabuleiro , Pieces[,] PositionTab , bool ColorPlayer , int[,] MovementPossible)
         {
-        int MovPosVerNulo = 0;
+        int PassarTabuleiroVertical = 0;
 
-        for(int MovPosHorNulo = 0 ; MovPosVerNulo <= 7 ; MovPosHorNulo++)
-        {
-            MovPos[MovPosHorNulo , MovPosVerNulo] = 0;
-
-            if(MovPosHorNulo == 7)
+            for(int PassarTabuleiroHorizontal = 0 ; PassarTabuleiroVertical <= 7 ; PassarTabuleiroHorizontal++)
             {
-            MovPosVerNulo++;
-            MovPosHorNulo = -1;
+                switch(EscolhaPassarTabuleiro)
+                {
+                    case 1:
+                    {
+                        EnPassantNulo(PositionTab , ColorPlayer , PassarTabuleiroHorizontal , PassarTabuleiroVertical);
+                        break;
+                    }
+
+                    case 2:
+                    {
+                    
+                    break;
+                    }
+
+                    case 3:
+                    {
+                    MovementPossibleNulo(MovementPossible , PassarTabuleiroHorizontal , PassarTabuleiroVertical);
+                    break;
+                    }
+                }
+
+                if(PassarTabuleiroHorizontal == 7)
+                {
+                PassarTabuleiroVertical++;
+                PassarTabuleiroHorizontal = -1;
+                }
             }
         }
-        }
 
-        void EnPassantNulo(Pieces[,] PosTab , bool ColPly)
+        void EnPassantNulo(Pieces[,] PositionTab , bool ColorPlayer , int PassarTabuleiroHorizontal , int PassarTabuleiroVertical)
         {
-        int EnPassantVerNulo = 0;
-
-        for(int EnPassantHorNulo = 0 ; EnPassantVerNulo <= 7 ; EnPassantHorNulo++)
-        {
-            if(PosTab[EnPassantHorNulo , EnPassantVerNulo] is Pawn && PosTab[EnPassantHorNulo , EnPassantVerNulo].Col != ColPly)
+            if(PositionTab[PassarTabuleiroHorizontal , PassarTabuleiroVertical] is Pawn && PositionTab[PassarTabuleiroHorizontal , PassarTabuleiroVertical].CollorPiece != ColorPlayer)
             {
-            Pawn PawnEnpassantNulo = (Pawn)PosTab[EnPassantHorNulo , EnPassantVerNulo];
-            PawnEnpassantNulo.EnPassantPossible = false;
-            }
-
-            if(EnPassantHorNulo == 7)
-            {
-            EnPassantVerNulo++;
-            EnPassantHorNulo = -1;
+                Pawn PawnEnpassantNulo = (Pawn)PositionTab[PassarTabuleiroHorizontal , PassarTabuleiroVertical];
+                PawnEnpassantNulo.EnPassantPossible = false;
             }
         }
+
+        void MovementPossibleNulo(int[,] MovementPossible , int PassarTabuleiroHorizontal , int PassarTabuleiroVertical)
+        {
+            MovementPossible[PassarTabuleiroHorizontal , PassarTabuleiroVertical] = 0;
         }
 
-        void PromotionTrans(int HorMovN , int VerMov , bool ColPly , Player PlyG)
+        void PromotionTrans(int HorizontalMovementN , int VerticalMovement , bool ColorPlayer , Player PlyG)
         {
             switch(PlyG.PromotionSelect())
             {
             case 1:{
-            PosPiece(new Rook() , ColPly , HorMovN , VerMov , true);
+            PosPiece(new Rook() , ColorPlayer , HorizontalMovementN , VerticalMovement , true);
             break;}
 
             case 2:{
-            PosPiece(new Bishop() , ColPly , HorMovN , VerMov , true);
+            PosPiece(new Bishop() , ColorPlayer , HorizontalMovementN , VerticalMovement , true);
             break;}
 
             case 3:{
-            PosPiece(new Knight() , ColPly , HorMovN , VerMov , true);
+            PosPiece(new Knight() , ColorPlayer , HorizontalMovementN , VerticalMovement , true);
             break;}
 
             case 4:{
-            PosPiece(new Queen() , ColPly , HorMovN , VerMov , true);
+            PosPiece(new Queen() , ColorPlayer , HorizontalMovementN , VerticalMovement , true);
             break;}
             }
         }
 
         void PosPiece(Pieces peca , bool CollorPeca , int HorizontalPeca , int VerticalPeca , bool MovementPast)
         {
-            peca.Col = CollorPeca;
-            peca.HorN = HorizontalPeca;
-            peca.Ver = VerticalPeca;
-            peca.MovPast = MovementPast;
+            peca.CollorPiece = CollorPeca;
+            peca.HorizontalPieceN = HorizontalPeca;
+            peca.VerticalPiece = VerticalPeca;
+            peca.MovementPast = MovementPast;
 
-            PosTab[HorizontalPeca , VerticalPeca] = peca;
+            PositionTab[HorizontalPeca , VerticalPeca] = peca;
         }
 
         void MovimentPiece(int MovementHorizontal , int MovementVertical , int SelectHorizontal , int SelectVertical)
         {
-            PosTab[MovementHorizontal , MovementVertical] = PosTab[SelectHorizontal , SelectVertical];
-            PosTab[SelectHorizontal , SelectVertical] = null;
-            PosTab[MovementHorizontal , MovementVertical].MovPast = true;
-            PosTab[MovementHorizontal , MovementVertical].HorN = MovementHorizontal;
-            PosTab[MovementHorizontal , MovementVertical].Ver = MovementVertical;
+            PositionTab[MovementHorizontal , MovementVertical] = PositionTab[SelectHorizontal , SelectVertical];
+            PositionTab[SelectHorizontal , SelectVertical] = null;
+            PositionTab[MovementHorizontal , MovementVertical].MovementPast = true;
+            PositionTab[MovementHorizontal , MovementVertical].HorizontalPieceN = MovementHorizontal;
+            PositionTab[MovementHorizontal , MovementVertical].VerticalPiece = MovementVertical;
         }
 
         public void TabStart()
@@ -111,66 +125,54 @@ namespace ComChess
             }
         }
 
-       public void Movement(int HorMovN , int VerMov , int SelHorN , int SelVer , int[,] MovPos , bool ColPly , Player PlyG)
+       public void Movement(int HorizontalMovementN , int VerticalMovement , int SelectionHorizontalN , int SelectionVertical , int[,] MovementPossible , bool ColorPlayer , Player PlyG)
         {
-        PosTab[SelHorN , SelVer].MovementPossible(SelHorN , SelVer , PosTab , MovPos , ColPly);
+        PositionTab[SelectionHorizontalN , SelectionVertical].MovementPossible(SelectionHorizontalN , SelectionVertical , PositionTab , MovementPossible , ColorPlayer);
         PlyG.Play();
-        HorMovN = PlyG.HorMovN;
-        VerMov = PlyG.VerMov;
+        HorizontalMovementN = PlyG.HorizontalMovementN;
+        VerticalMovement = PlyG.VerticalMovement;
 
-        if(MovPos[HorMovN , VerMov] == 1)
+        if(MovementPossible[HorizontalMovementN , VerticalMovement] == 1)
         {
-            MovimentPiece(HorMovN , VerMov , SelHorN , SelVer);
+            MovimentPiece(HorizontalMovementN , VerticalMovement , SelectionHorizontalN , SelectionVertical);
         }
 
-        if(MovPos[HorMovN , VerMov] == 2)
+        if(MovementPossible[HorizontalMovementN , VerticalMovement] == 2)
         {
-            MovimentPiece(HorMovN , VerMov , SelHorN , SelVer);
-            Pawn PawnEnpassant = (Pawn)PosTab[HorMovN , VerMov];
+            MovimentPiece(HorizontalMovementN , VerticalMovement , SelectionHorizontalN , SelectionVertical);
+            Pawn PawnEnpassant = (Pawn)PositionTab[HorizontalMovementN , VerticalMovement];
             PawnEnpassant.EnPassantPossible = true;
         }
 
-        else if(MovPos[HorMovN , VerMov] == 3 && PosTab[SelHorN , SelVer].Col == true)
+        else if(MovementPossible[HorizontalMovementN , VerticalMovement] == 3)
         {
-            MovimentPiece(2 , 0 , SelHorN , SelVer);
-            MovimentPiece(3 , 0 , 0 , 0);
+            MovimentPiece(2 , SelectionVertical , SelectionHorizontalN , SelectionVertical);
+            MovimentPiece(3 , SelectionVertical , 0 , SelectionVertical);
         }
 
-        else if(MovPos[HorMovN , VerMov] == 4 && PosTab[SelHorN , SelVer].Col == true)
+        else if(MovementPossible[HorizontalMovementN , VerticalMovement] == 4)
         {
-            MovimentPiece(6 , 0 , SelHorN , SelVer);
-            MovimentPiece(5 , 0 , 7 , 0);
+            MovimentPiece(6 , SelectionVertical , SelectionHorizontalN , SelectionVertical);
+            MovimentPiece(5 , SelectionVertical , 7 , SelectionVertical);
         }
 
-        else if(MovPos[HorMovN , VerMov] == 3 && PosTab[SelHorN , SelVer].Col == false)
+        else if(MovementPossible[HorizontalMovementN, VerticalMovement] == 5)
         {
-            MovimentPiece(2 , 7 , SelHorN , SelVer);
-            MovimentPiece(3 , 7 , 0 , 7);
+            MovimentPiece(HorizontalMovementN , VerticalMovement , SelectionHorizontalN , SelectionVertical);
+
+            PromotionTrans(HorizontalMovementN , VerticalMovement , ColorPlayer , PlyG);
         }
 
-        else if(MovPos[HorMovN , VerMov] == 4 && PosTab[SelHorN , SelVer].Col == false)
+        else if(MovementPossible[HorizontalMovementN , VerticalMovement] == 6)
         {
-            MovimentPiece(6 , 7 , SelHorN , SelVer);
-            MovimentPiece(5 , 7 , 7 , 7);
+            MovimentPiece(HorizontalMovementN , VerticalMovement , SelectionHorizontalN ,SelectionVertical);
+            Pawn PawnMov = (Pawn)PositionTab[HorizontalMovementN, VerticalMovement];
+            PositionTab[HorizontalMovementN , VerticalMovement - PawnMov.DefineCollor] = null;
         }
 
-        else if(MovPos[HorMovN, VerMov] == 5)
-        {
-            MovimentPiece(HorMovN , VerMov , SelHorN , SelVer);
-
-            PromotionTrans(HorMovN , VerMov , ColPly , PlyG);
-        }
-
-        else if(MovPos[HorMovN , VerMov] == 6)
-        {
-            MovimentPiece(HorMovN , VerMov , SelHorN ,SelVer);
-            Pawn PawnMov = (Pawn)PosTab[HorMovN, VerMov];
-            PosTab[HorMovN , VerMov - PawnMov.DefineCollor] = null;
-        }
-
-        if(MovPos[HorMovN , VerMov] != 0){
-        MovPosNulo(MovPos);
-        EnPassantNulo(PosTab , ColPly);}
+        if(MovementPossible[HorizontalMovementN , VerticalMovement] != 0){
+        PassarTabuleiro(1 , PositionTab , ColorPlayer , MovementPossible);
+        PassarTabuleiro(3 , PositionTab , ColorPlayer , MovementPossible);}
 
         }      
     }

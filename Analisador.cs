@@ -8,10 +8,10 @@ namespace ComChess
         return HorizontalVerify >= 0 && HorizontalVerify <= 7 && VerticalVerify >= 0 && VerticalVerify <= 7;
     }
 
-    void CasasDominadasPawnVerify(int CasasDominadasHorizontal , int CasasDominadasVertical , Pieces[,] PosTab , int[,] CasasDominadasTemporarias)
+    void CasasDominadasPawnVerify(int CasasDominadasHorizontal , int CasasDominadasVertical , Pieces[,] PositionTab , int[,] CasasDominadasTemporarias)
     {
         int DefineCollor = 0;
-        if(PosTab[CasasDominadasHorizontal , CasasDominadasVertical].Col == true)
+        if(PositionTab[CasasDominadasHorizontal , CasasDominadasVertical].CollorPiece == true)
         DefineCollor = 1;
         else{
         DefineCollor = -1;}
@@ -57,7 +57,7 @@ namespace ComChess
             CasasDominadasTemporarias[CasasDominadasHorizontal , CasasDominadasVertical - 1] = 1;
     }
 
-    public int[,] CasasDominadas( Pieces[,] PosTab , bool ColPly)
+    public int[,] CasasDominadas( Pieces[,] PositionTab , bool ColorPlayer)
         {
         int[,] CasasDominadasArray = new int[8,8];
         int[,] CasasDominadasTemporarias = new int[8,8];
@@ -65,18 +65,18 @@ namespace ComChess
 
         for(int CasasDominadasHorizontal = 0 ; CasasDominadasVertical <= 7 ; CasasDominadasHorizontal++)
         {
-            if(PosTab[CasasDominadasHorizontal , CasasDominadasVertical] != null && PosTab[CasasDominadasHorizontal , CasasDominadasVertical].Col != ColPly)
+            if(PositionTab[CasasDominadasHorizontal , CasasDominadasVertical] != null && PositionTab[CasasDominadasHorizontal , CasasDominadasVertical].CollorPiece != ColorPlayer)
             {
-                if(PosTab[CasasDominadasHorizontal , CasasDominadasVertical] is Pawn)
-                CasasDominadasPawnVerify(CasasDominadasHorizontal , CasasDominadasVertical , PosTab , CasasDominadasTemporarias);
+                if(PositionTab[CasasDominadasHorizontal , CasasDominadasVertical] is Pawn)
+                CasasDominadasPawnVerify(CasasDominadasHorizontal , CasasDominadasVertical , PositionTab , CasasDominadasTemporarias);
 
-                else if(PosTab[CasasDominadasHorizontal , CasasDominadasVertical] is King)
+                else if(PositionTab[CasasDominadasHorizontal , CasasDominadasVertical] is King)
                 {
                     CasasDominadasKingVerify(CasasDominadasHorizontal , CasasDominadasVertical , CasasDominadasTemporarias);
                 }
 
                 else{ 
-                PosTab[CasasDominadasHorizontal , CasasDominadasVertical].MovementPossible(CasasDominadasHorizontal , CasasDominadasVertical , PosTab , CasasDominadasTemporarias , PosTab[CasasDominadasHorizontal , CasasDominadasVertical].Col);}
+                PositionTab[CasasDominadasHorizontal , CasasDominadasVertical].MovementPossible(CasasDominadasHorizontal , CasasDominadasVertical , PositionTab , CasasDominadasTemporarias , PositionTab[CasasDominadasHorizontal , CasasDominadasVertical].CollorPiece);}
             }
 
             if(CasasDominadasHorizontal == 7)

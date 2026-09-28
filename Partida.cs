@@ -4,34 +4,34 @@ namespace ComChess
 {
     public class Partida
     {
-    Player PlyW = new Player();
-    Player PlyB = new Player();
-    int[,] MovPos = new int [8,8];
-    int[,] MovPosNulo = new int[8,8];
+    Player PlayerWhite = new Player();
+    Player PlayerBlack = new Player();
+    int[,] MovementPossible = new int [8,8];
+    int[,] MovementPossibleNulo = new int[8,8];
     Tabuleiro TabMov = new Tabuleiro();
 
-    void PlayerWhite()
+    void PlayerWhiteMetodo()
     {
-        PlyW.ColPly = true;
+        PlayerWhite.ColorPlayer = true;
     }
 
-    void PlayerBlack()
+    void PlayerBlackMetodo()
     {
-        PlyB.ColPly = false;
+        PlayerBlack.ColorPlayer = false;
     }
     
-    void PlayerWhiteMov(Pieces[,]PosTab , int SelHorN , int SelVer , int HorMovN , int VerMov , bool ColPly , Player PlyG)
+    void PlayerWhiteMov(Pieces[,] PositionTab , int SelectionHorizontalN , int SelectionVertical , int HorizontalMovementN , int VerticalMovement , bool ColorPlayer , Player PlyG)
     {
-        PlyG = PlyW;
-        PlyG.SelectPiece(PosTab);
-        TabMov.Movement(HorMovN ,  VerMov , SelHorN , SelVer , MovPos , ColPly , PlyG);
+        PlyG = PlayerWhite;
+        PlyG.SelectPiece(PositionTab);
+        TabMov.Movement(HorizontalMovementN ,  VerticalMovement , SelectionHorizontalN , SelectionVertical , MovementPossible , ColorPlayer , PlyG);
     }
 
-    void PlayerBlackMov(Pieces[,]PosTab , int SelHorN , int SelVer , int HorMovN , int VerMov , bool ColPly , Player PlyG)
+    void PlayerBlackMov(Pieces[,] PositionTab , int SelectionHorizontalN , int SelectionVertical , int HorizontalMovementN , int VerticalMovement , bool ColorPlayer , Player PlyG)
     {
-        PlyG = PlyB;
-        PlyG.SelectPiece(PosTab);
-        TabMov.Movement(HorMovN ,  VerMov , SelHorN , SelVer , MovPos , ColPly , PlyG);
+        PlyG = PlayerBlack;
+        PlyG.SelectPiece(PositionTab);
+        TabMov.Movement(HorizontalMovementN ,  VerticalMovement , SelectionHorizontalN , SelectionVertical , MovementPossible , ColorPlayer , PlyG);
     }
 
 

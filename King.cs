@@ -5,15 +5,15 @@ namespace ComChess
     {
         Analisador CasasDominadas = new Analisador();
 
-        void EvitarXeque(int[,] MovPos , Pieces[,] PosTab , bool ColPly)
+        void EvitarXeque(int[,] MovementPossible , Pieces[,] PositionTab , bool ColorPlayer)
         {
-            int[,] CasasDominadasTemporarias = CasasDominadas.CasasDominadas(PosTab , ColPly);
+            int[,] CasasDominadasTemporarias = CasasDominadas.CasasDominadas(PositionTab , ColorPlayer);
 
             int VerticalKingMovementPossible = 0;
         for(int HorizontalKingMovementPossible = 0 ; VerticalKingMovementPossible <= 7 ; HorizontalKingMovementPossible++)
         {
-            if(CasasDominadasTemporarias[HorizontalKingMovementPossible , VerticalKingMovementPossible] == MovPos[HorizontalKingMovementPossible , VerticalKingMovementPossible])
-            MovPos[HorizontalKingMovementPossible , VerticalKingMovementPossible] = 0;
+            if(CasasDominadasTemporarias[HorizontalKingMovementPossible , VerticalKingMovementPossible] == MovementPossible[HorizontalKingMovementPossible , VerticalKingMovementPossible])
+            MovementPossible[HorizontalKingMovementPossible , VerticalKingMovementPossible] = 0;
 
             if(HorizontalKingMovementPossible == 7)
             {
@@ -23,57 +23,57 @@ namespace ComChess
         }
         }
 
-        void KingRoque(int SelHorN , int SelVer , Pieces[,] PosTab , int[,] MovPos)
+        void KingRoque(int SelectionHorizontalN , int SelectionVertical , Pieces[,] PositionTab , int[,] MovementPossible)
         {
-        int PosVerfHor = SelHorN;
-        int PosVerfVer = SelVer;
+        int PositionVerifyfHorizontal = SelectionHorizontalN;
+        int PositionVerifyfVertical = SelectionVertical;
         bool QuebrarRoque = true;
 
-        void VerifyRoque(ref int PosVerfHor , int PosVerfVer , int i , ref bool QuebrarRoque)
+        void VerifyRoque(ref int PositionVerifyfHorizontal , int PositionVerifyfVertical , int i , ref bool QuebrarRoque)
         {
-            if(InTab(PosVerfHor + i , PosVerfVer) && PosTab[PosVerfHor + i , PosVerfVer] is Rook && PosTab[PosVerfHor + i , PosVerfVer].MovPast == false)
+            if(InTab(PositionVerifyfHorizontal + i , PositionVerifyfVertical) && PositionTab[PositionVerifyfHorizontal + i , PositionVerifyfVertical] is Rook && PositionTab[PositionVerifyfHorizontal + i , PositionVerifyfVertical].MovementPast == false)
             if(i == 1){
-                MovPos[6 , PosVerfVer] = 4;
+                MovementPossible[6 , PositionVerifyfVertical] = 4;
                 QuebrarRoque = false;}
             else{
-                MovPos[2 , PosVerfVer] = 3;
+                MovementPossible[2 , PositionVerifyfVertical] = 3;
                 QuebrarRoque = false;}
-            else if(InTab(PosVerfHor + i , PosVerfVer) && PosTab[PosVerfHor + i , PosVerfVer] == null)
-                PosVerfHor = PosVerfHor + i;
+            else if(InTab(PositionVerifyfHorizontal + i , PositionVerifyfVertical) && PositionTab[PositionVerifyfHorizontal + i , PositionVerifyfVertical] == null)
+                PositionVerifyfHorizontal = PositionVerifyfHorizontal + i;
             else
                 QuebrarRoque = false;
         }
 
-        if(PosTab[PosVerfHor , PosVerfVer].MovPast == false){
+        if(PositionTab[PositionVerifyfHorizontal , PositionVerifyfVertical].MovementPast == false){
             while(QuebrarRoque)
             {
-            VerifyRoque(ref PosVerfHor , PosVerfVer , 1 , ref QuebrarRoque);
+            VerifyRoque(ref PositionVerifyfHorizontal , PositionVerifyfVertical , 1 , ref QuebrarRoque);
             }
             QuebrarRoque = true;
-            PosVerfHor = SelHorN;
+            PositionVerifyfHorizontal = SelectionHorizontalN;
             while(QuebrarRoque)
             {
-            VerifyRoque(ref PosVerfHor , PosVerfVer , -1 , ref QuebrarRoque);
+            VerifyRoque(ref PositionVerifyfHorizontal , PositionVerifyfVertical , -1 , ref QuebrarRoque);
             }}
         }
 
-        public override void MovementPossible(int SelHorN , int SelVer , Pieces[,]PosTab , int[,] MovPos , bool ColPly)        
+        public override void MovementPossible(int SelectionHorizontalN , int SelectionVertical , Pieces[,]PositionTab , int[,] MovementPossible , bool ColorPlayer)        
         {
-            int PosVerfHor = SelHorN;
-            int PosVerfVer = SelVer;
+            int PositionVerifyfHorizontal = SelectionHorizontalN;
+            int PositionVerifyfVertical = SelectionVertical;
 
-            Directions(1 , 1 , PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
-            Directions(1 , -1 , PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
-            Directions(-1 , 1 , PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
-            Directions(-1 , -1 , PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
-            Directions(1 , 0 , PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
-            Directions(0 , -1 , PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
-            Directions(-1 , 0 , PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
-            Directions(0 , 1 , PosVerfHor , PosVerfVer , PosTab , MovPos , ColPly);
+            Directions(1 , 1 , PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer);
+            Directions(1 , -1 , PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer);
+            Directions(-1 , 1 , PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer);
+            Directions(-1 , -1 , PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer);
+            Directions(1 , 0 , PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer);
+            Directions(0 , -1 , PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer);
+            Directions(-1 , 0 , PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer);
+            Directions(0 , 1 , PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer);
 
-            EvitarXeque(MovPos , PosTab , ColPly);
+            EvitarXeque(MovementPossible , PositionTab , ColorPlayer);
 
-            KingRoque(SelHorN , SelVer , PosTab , MovPos);
+            KingRoque(SelectionHorizontalN , SelectionVertical , PositionTab , MovementPossible);
         }
     }
 }
