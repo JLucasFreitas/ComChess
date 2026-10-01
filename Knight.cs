@@ -17,5 +17,16 @@ namespace ComChess
             Directions(-1 , 2 , PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer);
             Directions(-1 , -2 , PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer);
         }
+
+        public override Pieces ClonePiece()
+        {
+            Pieces PieceClonada = new Knight();
+            PieceClonada.CollorPiece = this.CollorPiece;
+            PieceClonada.HorizontalPieceN = this.HorizontalPieceN;
+            PieceClonada.VerticalPiece = this.VerticalPiece;
+            PieceClonada.MovementPast = this.MovementPast;
+
+            return PieceClonada;
+        }
     }
 }

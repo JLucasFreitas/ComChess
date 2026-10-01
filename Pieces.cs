@@ -68,6 +68,9 @@ public abstract class Pieces
     {
         return HorizontalVerify >= 0 && HorizontalVerify <= 7 && VerticalVerify >= 0 && VerticalVerify <= 7;
     }
+
+    public abstract Pieces ClonePiece();
+
 }
 
 }

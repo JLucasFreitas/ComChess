@@ -18,13 +18,13 @@ namespace ComChess
                 {
                     case 1:
                     {
-                        EnPassantNulo(PositionTab , ColorPlayer , PassarTabuleiroHorizontal , PassarTabuleiroVertical);
-                        break;
+                    EnPassantNulo(PositionTab , ColorPlayer , PassarTabuleiroHorizontal , PassarTabuleiroVertical);
+                    break;
                     }
 
                     case 2:
                     {
-                    
+                    ClonarTab(PassarTabuleiroHorizontal , PassarTabuleiroVertical);
                     break;
                     }
 
@@ -41,6 +41,15 @@ namespace ComChess
                 PassarTabuleiroHorizontal = -1;
                 }
             }
+        }
+
+        void ClonarTab(int PassarTabuleiroHorizontal , int PassarTabuleiroVertical)
+        {
+            if(PositionTab[PassarTabuleiroHorizontal , PassarTabuleiroVertical] != null)
+            TabuleiroClonado[PassarTabuleiroHorizontal , PassarTabuleiroVertical] = PositionTab[PassarTabuleiroHorizontal , PassarTabuleiroVertical].ClonePiece();
+
+            else
+            TabuleiroClonado[PassarTabuleiroHorizontal , PassarTabuleiroVertical] = null;
         }
 
         void EnPassantNulo(Pieces[,] PositionTab , bool ColorPlayer , int PassarTabuleiroHorizontal , int PassarTabuleiroVertical)
@@ -62,31 +71,34 @@ namespace ComChess
             switch(PlyG.PromotionSelect())
             {
             case 1:{
-            PosPiece(new Rook() , ColorPlayer , HorizontalMovementN , VerticalMovement , true);
+            PosPiece(new Rook() , ColorPlayer , HorizontalMovementN , VerticalMovement , true , 1);
             break;}
 
             case 2:{
-            PosPiece(new Bishop() , ColorPlayer , HorizontalMovementN , VerticalMovement , true);
+            PosPiece(new Bishop() , ColorPlayer , HorizontalMovementN , VerticalMovement , true , 1);
             break;}
 
             case 3:{
-            PosPiece(new Knight() , ColorPlayer , HorizontalMovementN , VerticalMovement , true);
+            PosPiece(new Knight() , ColorPlayer , HorizontalMovementN , VerticalMovement , true , 1);
             break;}
 
             case 4:{
-            PosPiece(new Queen() , ColorPlayer , HorizontalMovementN , VerticalMovement , true);
+            PosPiece(new Queen() , ColorPlayer , HorizontalMovementN , VerticalMovement , true , 1);
             break;}
             }
         }
 
-        void PosPiece(Pieces peca , bool CollorPeca , int HorizontalPeca , int VerticalPeca , bool MovementPast)
+        void PosPiece(Pieces peca , bool CollorPeca , int HorizontalPeca , int VerticalPeca , bool MovementPast , int WhichTab)
         {
             peca.CollorPiece = CollorPeca;
             peca.HorizontalPieceN = HorizontalPeca;
             peca.VerticalPiece = VerticalPeca;
             peca.MovementPast = MovementPast;
 
-            PositionTab[HorizontalPeca , VerticalPeca] = peca;
+            if(WhichTab == 1)
+                PositionTab[HorizontalPeca , VerticalPeca] = peca;
+            else
+                TabuleiroClonado[HorizontalPeca , VerticalPeca] = peca;
         }
 
         void MovimentPiece(int MovementHorizontal , int MovementVertical , int SelectHorizontal , int SelectVertical)
@@ -100,28 +112,28 @@ namespace ComChess
 
         public void TabStart()
         {
-            PosPiece(new Rook() , true , 0 , 0 , false);
-            PosPiece(new Knight() , true , 1 , 0 , false);
-            PosPiece(new Bishop() , true , 2 , 0 , false);
-            PosPiece(new Queen() , true , 3 , 0 , false);
-            PosPiece(new King() , true , 4 , 0 , false);
-            PosPiece(new Bishop() , true , 5 , 0 , false);
-            PosPiece(new Knight() , true , 6 , 0 , false);
-            PosPiece(new Rook() , true , 7 , 0 , false);
+            PosPiece(new Rook() , true , 0 , 0 , false , 1);
+            PosPiece(new Knight() , true , 1 , 0 , false , 1);
+            PosPiece(new Bishop() , true , 2 , 0 , false , 1);
+            PosPiece(new Queen() , true , 3 , 0 , false , 1);
+            PosPiece(new King() , true , 4 , 0 , false , 1);
+            PosPiece(new Bishop() , true , 5 , 0 , false , 1);
+            PosPiece(new Knight() , true , 6 , 0 , false , 1);
+            PosPiece(new Rook() , true , 7 , 0 , false , 1);
 
-            PosPiece(new Rook() , false , 0 , 7 , false);
-            PosPiece(new Knight() , false , 1 , 7 , false);
-            PosPiece(new Bishop() , false , 2 , 7 , false);
-            PosPiece(new Queen() , false , 3 , 7 , false);
-            PosPiece(new King() , false , 4 , 7 , false);
-            PosPiece(new Bishop() , false , 5 , 7 , false);
-            PosPiece(new Knight() , false , 6 , 7 , false);
-            PosPiece(new Rook() , false , 7 , 7 , false);
+            PosPiece(new Rook() , false , 0 , 7 , false , 1);
+            PosPiece(new Knight() , false , 1 , 7 , false , 1);
+            PosPiece(new Bishop() , false , 2 , 7 , false , 1);
+            PosPiece(new Queen() , false , 3 , 7 , false , 1);
+            PosPiece(new King() , false , 4 , 7 , false , 1);
+            PosPiece(new Bishop() , false , 5 , 7 , false , 1);
+            PosPiece(new Knight() , false , 6 , 7 , false , 1);
+            PosPiece(new Rook() , false , 7 , 7 , false , 1);
 
             for(int HorizontalPeao = 0 ; HorizontalPeao < 8 ; HorizontalPeao++)
             {
-                PosPiece(new Pawn() , true , HorizontalPeao , 1 , false);
-                PosPiece(new Pawn() , false , HorizontalPeao , 6 , false);
+                PosPiece(new Pawn() , true , HorizontalPeao , 1 , false , 1);
+                PosPiece(new Pawn() , false , HorizontalPeao , 6 , false , 1);
             }
         }
 
@@ -131,6 +143,8 @@ namespace ComChess
         PlyG.Play();
         HorizontalMovementN = PlyG.HorizontalMovementN;
         VerticalMovement = PlyG.VerticalMovement;
+
+        PassarTabuleiro(2 , PositionTab , ColorPlayer , MovementPossible);
 
         if(MovementPossible[HorizontalMovementN , VerticalMovement] == 1)
         {

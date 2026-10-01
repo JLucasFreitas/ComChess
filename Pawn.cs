@@ -78,7 +78,19 @@ namespace ComChess
 
             EnPassant(SelectionHorizontalN , SelectionVertical , DefineCollor , MovementPossible , PositionTab);
 
+        }
 
+        public override Pieces ClonePiece()
+        {
+            Pawn PieceClonada = new Pawn();
+            PieceClonada.CollorPiece = this.CollorPiece;
+            PieceClonada.HorizontalPieceN = this.HorizontalPieceN;
+            PieceClonada.VerticalPiece = this.VerticalPiece;
+            PieceClonada.MovementPast = this.MovementPast;
+            PieceClonada.DefineCollor = this.DefineCollor;
+            PieceClonada.EnPassantPossible = this.EnPassantPossible;
+
+            return PieceClonada;
         }
     }
 }
