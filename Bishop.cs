@@ -13,5 +13,16 @@ namespace ComChess
             DirectionsContinuos(-1 , -1 , PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer);
             DirectionsContinuos(1 , 1 , PositionVerifyfHorizontal , PositionVerifyfVertical , PositionTab , MovementPossible , ColorPlayer);
         }
+
+        public override Pieces ClonePiece()
+        {
+            Pieces PieceClonada = new Bishop();
+            PieceClonada.CollorPiece = this.CollorPiece;
+            PieceClonada.HorizontalPieceN = this.HorizontalPieceN;
+            PieceClonada.VerticalPiece = this.VerticalPiece;
+            PieceClonada.MovementPast = this.MovementPast;
+
+            return PieceClonada;
+        }
     }
 }

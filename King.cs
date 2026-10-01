@@ -75,5 +75,16 @@ namespace ComChess
 
             KingRoque(SelectionHorizontalN , SelectionVertical , PositionTab , MovementPossible);
         }
+
+        public override Pieces ClonePiece()
+        {
+            Pieces PieceClonada = new King();
+            PieceClonada.CollorPiece = this.CollorPiece;
+            PieceClonada.HorizontalPieceN = this.HorizontalPieceN;
+            PieceClonada.VerticalPiece = this.VerticalPiece;
+            PieceClonada.MovementPast = this.MovementPast;
+
+            return PieceClonada;
+        }
     }
 }
