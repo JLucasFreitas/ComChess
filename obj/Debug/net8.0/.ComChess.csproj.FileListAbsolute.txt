@@ -1,0 +1,15 @@
+/home/joaolucas/ComChess/bin/Debug/net8.0/.ComChess
+/home/joaolucas/ComChess/bin/Debug/net8.0/.ComChess.deps.json
+/home/joaolucas/ComChess/bin/Debug/net8.0/.ComChess.runtimeconfig.json
+/home/joaolucas/ComChess/bin/Debug/net8.0/.ComChess.dll
+/home/joaolucas/ComChess/bin/Debug/net8.0/.ComChess.pdb
+/home/joaolucas/ComChess/obj/Debug/net8.0/.ComChess.GeneratedMSBuildEditorConfig.editorconfig
+/home/joaolucas/ComChess/obj/Debug/net8.0/.ComChess.AssemblyInfoInputs.cache
+/home/joaolucas/ComChess/obj/Debug/net8.0/.ComChess.AssemblyInfo.cs
+/home/joaolucas/ComChess/obj/Debug/net8.0/.ComChess.csproj.CoreCompileInputs.cache
+/home/joaolucas/ComChess/obj/Debug/net8.0/.ComChess.sourcelink.json
+/home/joaolucas/ComChess/obj/Debug/net8.0/.ComChess.dll
+/home/joaolucas/ComChess/obj/Debug/net8.0/refint/.ComChess.dll
+/home/joaolucas/ComChess/obj/Debug/net8.0/.ComChess.pdb
+/home/joaolucas/ComChess/obj/Debug/net8.0/.ComChess.genruntimeconfig.cache
+/home/joaolucas/ComChess/obj/Debug/net8.0/ref/.ComChess.dll

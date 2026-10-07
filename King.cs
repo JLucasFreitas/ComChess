@@ -10,17 +10,17 @@ namespace ComChess
             int[,] CasasDominadasTemporarias = CasasDominadas.CasasDominadas(PositionTab , ColorPlayer);
 
             int VerticalKingMovementPossible = 0;
-        for(int HorizontalKingMovementPossible = 0 ; VerticalKingMovementPossible <= 7 ; HorizontalKingMovementPossible++)
-        {
-            if(CasasDominadasTemporarias[HorizontalKingMovementPossible , VerticalKingMovementPossible] == MovementPossible[HorizontalKingMovementPossible , VerticalKingMovementPossible])
-            MovementPossible[HorizontalKingMovementPossible , VerticalKingMovementPossible] = 0;
-
-            if(HorizontalKingMovementPossible == 7)
+            for(int HorizontalKingMovementPossible = 0 ; VerticalKingMovementPossible <= 7 ; HorizontalKingMovementPossible++)
             {
-            VerticalKingMovementPossible++;
-            HorizontalKingMovementPossible = -1;
+                if(CasasDominadasTemporarias[HorizontalKingMovementPossible , VerticalKingMovementPossible] == MovementPossible[HorizontalKingMovementPossible , VerticalKingMovementPossible])
+                MovementPossible[HorizontalKingMovementPossible , VerticalKingMovementPossible] = 0;
+
+                if(HorizontalKingMovementPossible == 7)
+                {
+                VerticalKingMovementPossible++;
+                HorizontalKingMovementPossible = -1;
+                }
             }
-        }
         }
 
         void KingRoque(int SelectionHorizontalN , int SelectionVertical , Pieces[,] PositionTab , int[,] MovementPossible)
@@ -86,5 +86,7 @@ namespace ComChess
 
             return PieceClonada;
         }
+
+        public override char Symbol => 'K';
     }
 }

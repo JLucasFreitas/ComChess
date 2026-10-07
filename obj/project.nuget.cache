@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5SBojsGf8ZalPZrOEa4qTZhB6zZH9/n65y/77JGc767CqladIeRdwZWqLQnAPTeIpuVQqgZCy8gS3rzr0aBElA==",
+  "dgSpecHash": "QURbmFTmkJd4sNmtb/jh+eMJvRKCh2QBFTqn1cKBceuI1wRGXu7Z8sFG0RoFuCZEM/leYelyPu2bhrG1xkx5kg==",
   "success": true,
-  "projectFilePath": "/home/joaolucas/ComChess/ComChess.csproj",
+  "projectFilePath": "/home/joaolucas/ComChess/.ComChess.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

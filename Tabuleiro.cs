@@ -33,6 +33,12 @@ namespace ComChess
                     MovementPossibleNulo(MovementPossible , PassarTabuleiroHorizontal , PassarTabuleiroVertical);
                     break;
                     }
+
+                    case 4:
+                    {
+                        MostrarCasa(PassarTabuleiroHorizontal , PassarTabuleiroVertical);
+                        break;
+                    }
                 }
 
                 if(PassarTabuleiroHorizontal == 7)
@@ -64,6 +70,23 @@ namespace ComChess
         void MovementPossibleNulo(int[,] MovementPossible , int PassarTabuleiroHorizontal , int PassarTabuleiroVertical)
         {
             MovementPossible[PassarTabuleiroHorizontal , PassarTabuleiroVertical] = 0;
+        }
+
+        void MostrarCasa(int PassarTabuleiroHorizontal , int PassarTabuleiroVertical)
+        {
+            if(PositionTab[PassarTabuleiroHorizontal , PassarTabuleiroVertical] == null)
+            Console.Write(" . ");
+
+            else
+            Console.Write($" {PositionTab[PassarTabuleiroHorizontal , PassarTabuleiroVertical].Symbol} ");
+
+            if(PassarTabuleiroHorizontal == 7)
+            Console.WriteLine("");
+        }
+
+        public void MostrarTabuleiro()
+        {
+            PassarTabuleiro(4 , PositionTab , false , new int[8,8]);
         }
 
         void PromotionTrans(int HorizontalMovementN , int VerticalMovement , bool ColorPlayer , Player PlyG)
