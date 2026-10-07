@@ -8,6 +8,7 @@ namespace ComChess
         public Pieces[,] PositionTab {get; set;} = new Pieces[8 , 8];
         public Pieces[,] TabuleiroClonado {get; set;} = new Pieces[8 , 8];
 
+        // Percorre todas as posições do tabuleiro e executa a operação selecionada.
         void PassarTabuleiro(int EscolhaPassarTabuleiro , Pieces[,] PositionTab , bool ColorPlayer , int[,] MovementPossible)
         {
         int PassarTabuleiroVertical = 0;
@@ -49,6 +50,7 @@ namespace ComChess
             }
         }
 
+        // Clona a peça da posição atual para o tabuleiro de backup.
         void ClonarTab(int PassarTabuleiroHorizontal , int PassarTabuleiroVertical)
         {
             if(PositionTab[PassarTabuleiroHorizontal , PassarTabuleiroVertical] != null)
@@ -58,6 +60,7 @@ namespace ComChess
             TabuleiroClonado[PassarTabuleiroHorizontal , PassarTabuleiroVertical] = null;
         }
 
+        // Remove a possibilidade de En Passant dos peões adversários quando ela não é mais válida.
         void EnPassantNulo(Pieces[,] PositionTab , bool ColorPlayer , int PassarTabuleiroHorizontal , int PassarTabuleiroVertical)
         {
             if(PositionTab[PassarTabuleiroHorizontal , PassarTabuleiroVertical] is Pawn && PositionTab[PassarTabuleiroHorizontal , PassarTabuleiroVertical].CollorPiece != ColorPlayer)
@@ -67,11 +70,13 @@ namespace ComChess
             }
         }
 
+        // Zera uma posição do array de movimentos possíveis.
         void MovementPossibleNulo(int[,] MovementPossible , int PassarTabuleiroHorizontal , int PassarTabuleiroVertical)
         {
             MovementPossible[PassarTabuleiroHorizontal , PassarTabuleiroVertical] = 0;
         }
 
+        // Exibe a peça ou uma casa vazia na posição atual do tabuleiro.
         void MostrarCasa(int PassarTabuleiroHorizontal , int PassarTabuleiroVertical)
         {
             if(PositionTab[PassarTabuleiroHorizontal , PassarTabuleiroVertical] == null)
@@ -84,11 +89,13 @@ namespace ComChess
             Console.WriteLine("");
         }
 
+        // Percorre e exibe todo o tabuleiro no console.
         public void MostrarTabuleiro()
         {
             PassarTabuleiro(4 , PositionTab , false , new int[8,8]);
         }
 
+        // Lê a peça escolhida na promoção e substitui o peão pela nova peça.
         void PromotionTrans(int HorizontalMovementN , int VerticalMovement , bool ColorPlayer , Player PlyG)
         {
             switch(PlyG.PromotionSelect())
@@ -111,6 +118,7 @@ namespace ComChess
             }
         }
 
+        // Cria as informações da peça e a posiciona no tabuleiro selecionado.
         void PosPiece(Pieces peca , bool CollorPeca , int HorizontalPeca , int VerticalPeca , bool MovementPast , int WhichTab)
         {
             peca.CollorPiece = CollorPeca;
@@ -124,6 +132,7 @@ namespace ComChess
                 TabuleiroClonado[HorizontalPeca , VerticalPeca] = peca;
         }
 
+        // Move uma peça para outra posição, realizando também capturas quando houver uma peça no destino.
         void MovimentPiece(int MovementHorizontal , int MovementVertical , int SelectHorizontal , int SelectVertical)
         {
             PositionTab[MovementHorizontal , MovementVertical] = PositionTab[SelectHorizontal , SelectVertical];
@@ -133,6 +142,7 @@ namespace ComChess
             PositionTab[MovementHorizontal , MovementVertical].VerticalPiece = MovementVertical;
         }
 
+        // Posiciona todas as peças em suas posições iniciais.
         public void TabStart()
         {
             PosPiece(new Rook() , true , 0 , 0 , false , 1);
@@ -160,20 +170,24 @@ namespace ComChess
             }
         }
 
-       public void Movement(int HorizontalMovementN , int VerticalMovement , int SelectionHorizontalN , int SelectionVertical , int[,] MovementPossible , bool ColorPlayer , Player PlyG)
+        // Obtém a posição de destino e executa o tipo de movimento correspondente.
+        public void Movement(int HorizontalMovementN , int VerticalMovement , int SelectionHorizontalN , int SelectionVertical , int[,] MovementPossible , bool ColorPlayer , Player PlyG)
         {
         PositionTab[SelectionHorizontalN , SelectionVertical].MovementPossible(SelectionHorizontalN , SelectionVertical , PositionTab , MovementPossible , ColorPlayer);
         PlyG.Play();
         HorizontalMovementN = PlyG.HorizontalMovementN;
         VerticalMovement = PlyG.VerticalMovement;
 
+        // Clona o tabuleiro antes de executar a jogada.
         PassarTabuleiro(2 , PositionTab , ColorPlayer , MovementPossible);
 
+        // Movimento normal ou captura.
         if(MovementPossible[HorizontalMovementN , VerticalMovement] == 1)
         {
             MovimentPiece(HorizontalMovementN , VerticalMovement , SelectionHorizontalN , SelectionVertical);
         }
 
+        // Movimento inicial de duas casas do peão.
         if(MovementPossible[HorizontalMovementN , VerticalMovement] == 2)
         {
             MovimentPiece(HorizontalMovementN , VerticalMovement , SelectionHorizontalN , SelectionVertical);
@@ -181,18 +195,21 @@ namespace ComChess
             PawnEnpassant.EnPassantPossible = true;
         }
 
+        // Roque Longo
         else if(MovementPossible[HorizontalMovementN , VerticalMovement] == 3)
         {
             MovimentPiece(2 , SelectionVertical , SelectionHorizontalN , SelectionVertical);
             MovimentPiece(3 , SelectionVertical , 0 , SelectionVertical);
         }
 
+        // Roque Curto
         else if(MovementPossible[HorizontalMovementN , VerticalMovement] == 4)
         {
             MovimentPiece(6 , SelectionVertical , SelectionHorizontalN , SelectionVertical);
             MovimentPiece(5 , SelectionVertical , 7 , SelectionVertical);
         }
 
+        // Promoção do Peão
         else if(MovementPossible[HorizontalMovementN, VerticalMovement] == 5)
         {
             MovimentPiece(HorizontalMovementN , VerticalMovement , SelectionHorizontalN , SelectionVertical);
@@ -200,6 +217,7 @@ namespace ComChess
             PromotionTrans(HorizontalMovementN , VerticalMovement , ColorPlayer , PlyG);
         }
 
+        // EnPassant
         else if(MovementPossible[HorizontalMovementN , VerticalMovement] == 6)
         {
             MovimentPiece(HorizontalMovementN , VerticalMovement , SelectionHorizontalN ,SelectionVertical);
@@ -207,6 +225,7 @@ namespace ComChess
             PositionTab[HorizontalMovementN , VerticalMovement - PawnMov.DefineCollor] = null;
         }
 
+        // Após uma jogada válida, atualiza o En Passant e limpa os movimentos possíveis.
         if(MovementPossible[HorizontalMovementN , VerticalMovement] != 0){
         PassarTabuleiro(1 , PositionTab , ColorPlayer , MovementPossible);
         PassarTabuleiro(3 , PositionTab , ColorPlayer , MovementPossible);}
