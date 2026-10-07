@@ -20,21 +20,42 @@ namespace ComChess
         PlayerBlack.ColorPlayer = false;
     }
     
-    void PlayerWhiteMov(Pieces[,] PositionTab , int SelectionHorizontalN , int SelectionVertical , int HorizontalMovementN , int VerticalMovement , bool ColorPlayer , Player PlyG)
+    void PlayerWhiteMov()
     {
-        PlyG = PlayerWhite;
-        PlyG.SelectPiece(PositionTab);
-        TabMov.Movement(HorizontalMovementN ,  VerticalMovement , SelectionHorizontalN , SelectionVertical , MovementPossible , ColorPlayer , PlyG);
+        PlayerWhite.SelectPiece(TabMov.PositionTab);
+        TabMov.Movement(0 ,  0 , PlayerWhite.SelectionHorizontalN , PlayerWhite.SelectionVertical , MovementPossible , PlayerWhite.ColorPlayer , PlayerWhite);
     }
 
-    void PlayerBlackMov(Pieces[,] PositionTab , int SelectionHorizontalN , int SelectionVertical , int HorizontalMovementN , int VerticalMovement , bool ColorPlayer , Player PlyG)
+    void PlayerBlackMov()
     {
-        PlyG = PlayerBlack;
-        PlyG.SelectPiece(PositionTab);
-        TabMov.Movement(HorizontalMovementN ,  VerticalMovement , SelectionHorizontalN , SelectionVertical , MovementPossible , ColorPlayer , PlyG);
+        PlayerBlack.SelectPiece(TabMov.PositionTab);
+        TabMov.Movement(0 ,  0 , PlayerBlack.SelectionHorizontalN , PlayerBlack.SelectionVertical , MovementPossible , PlayerBlack.ColorPlayer , PlayerBlack);
     }
 
+    void Fluxo()
+    {
+        PlayerWhiteMetodo();
+        PlayerBlackMetodo();
 
+        TabMov.TabStart();
+        TabMov.MostrarTabuleiro();
+
+        while(true)
+        {
+            PlayerWhiteMov();
+            TabMov.MostrarTabuleiro();
+
+            PlayerBlackMov();
+            TabMov.MostrarTabuleiro();
+        }
+    }
+
+    static void Main(string[] args)
+    {
+        Partida Iniciar = new Partida();
+
+        Iniciar.Fluxo();
+    }
 
     }
 }

@@ -12,6 +12,7 @@ public abstract class Pieces
     public int VerticalPiece {get; set;}
     public bool CollorPiece {get; set;} //True = White | False = Black
     public bool MovementPast {get; set;} //True = Move | False = No move
+    public abstract char Symbol {get ;}
     void Trans()
     {
     HorizontalPieceN = HorizontalPiece - 'a';

@@ -24,5 +24,7 @@ namespace ComChess
 
             return PieceClonada;
         }
+
+        public override char Symbol => 'B';
     }
 }

@@ -13,9 +13,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/joaolucas/ComChess/ComChess.csproj",
-      "projectName": "ComChess",
-      "projectPath": "/home/joaolucas/ComChess/ComChess.csproj",
+      "projectUniqueName": "/home/joaolucas/ComChess/.ComChess.csproj",
+      "projectName": ".ComChess",
+      "projectPath": "/home/joaolucas/ComChess/.ComChess.csproj",
       "packagesPath": "/home/joaolucas/.nuget/packages/",
       "outputPath": "/home/joaolucas/ComChess/obj/",
       "projectStyle": "PackageReference",
@@ -59,7 +59,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.127/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.131/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
