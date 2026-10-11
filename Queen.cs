@@ -36,5 +36,17 @@ namespace ComChess
 
         // Símbolo utilizado para representar a Rainha no tabuleiro
         public override char Symbol => 'Q';
+
+
+        public override string PecaVisual
+        {
+            get
+            {
+            if(CollorPiece)
+                return "♛";
+            else
+                return "♕";
+            }
+        }
     }
 }

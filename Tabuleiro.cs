@@ -11,9 +11,9 @@ namespace ComChess
         // Percorre todas as posições do tabuleiro e executa a operação selecionada.
         void PassarTabuleiro(int EscolhaPassarTabuleiro , Pieces[,] PositionTab , bool ColorPlayer , int[,] MovementPossible)
         {
-        int PassarTabuleiroVertical = 0;
+        int PassarTabuleiroVertical = 7;
 
-            for(int PassarTabuleiroHorizontal = 0 ; PassarTabuleiroVertical <= 7 ; PassarTabuleiroHorizontal++)
+            for(int PassarTabuleiroHorizontal = 0 ; PassarTabuleiroVertical >= 0 ; PassarTabuleiroHorizontal++)
             {
                 switch(EscolhaPassarTabuleiro)
                 {
@@ -44,7 +44,7 @@ namespace ComChess
 
                 if(PassarTabuleiroHorizontal == 7)
                 {
-                PassarTabuleiroVertical++;
+                PassarTabuleiroVertical--;
                 PassarTabuleiroHorizontal = -1;
                 }
             }
@@ -79,11 +79,25 @@ namespace ComChess
         // Exibe a peça ou uma casa vazia na posição atual do tabuleiro.
         void MostrarCasa(int PassarTabuleiroHorizontal , int PassarTabuleiroVertical)
         {
+            if(PassarTabuleiroHorizontal == 0)
+            Console.Write($" {PassarTabuleiroVertical + 1} ");
+
             if(PositionTab[PassarTabuleiroHorizontal , PassarTabuleiroVertical] == null)
-            Console.Write(" . ");
+            {
+                if(PassarTabuleiroHorizontal % 2 == 0 && PassarTabuleiroVertical % 2 != 0 || PassarTabuleiroHorizontal % 2 != 0 && PassarTabuleiroVertical % 2 == 0 )
+                    Console.Write(" ⬜");
+                else
+                Console.Write(" ⬛");
+            }
 
             else
-            Console.Write($" {PositionTab[PassarTabuleiroHorizontal , PassarTabuleiroVertical].Symbol} ");
+            Console.Write($" {PositionTab[PassarTabuleiroHorizontal , PassarTabuleiroVertical].PecaVisual} ");
+
+            if(PassarTabuleiroVertical == 0 && PassarTabuleiroHorizontal == 7)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("    a  b  c  d  e  f  g  h ");
+            }
 
             if(PassarTabuleiroHorizontal == 7)
             Console.WriteLine("");
@@ -171,7 +185,7 @@ namespace ComChess
         }
 
         // Obtém a posição de destino e executa o tipo de movimento correspondente.
-        public void Movement(int HorizontalMovementN , int VerticalMovement , int SelectionHorizontalN , int SelectionVertical , int[,] MovementPossible , bool ColorPlayer , Player PlyG)
+        public bool Movement(int HorizontalMovementN , int VerticalMovement , int SelectionHorizontalN , int SelectionVertical , int[,] MovementPossible , bool ColorPlayer , Player PlyG)
         {
         PositionTab[SelectionHorizontalN , SelectionVertical].MovementPossible(SelectionHorizontalN , SelectionVertical , PositionTab , MovementPossible , ColorPlayer);
         PlyG.Play();
@@ -181,6 +195,8 @@ namespace ComChess
         // Clona o tabuleiro antes de executar a jogada.
         PassarTabuleiro(2 , PositionTab , ColorPlayer , MovementPossible);
 
+
+        if(MovementPossible[HorizontalMovementN , VerticalMovement] != 0){
         // Movimento normal ou captura.
         if(MovementPossible[HorizontalMovementN , VerticalMovement] == 1)
         {
@@ -224,11 +240,18 @@ namespace ComChess
             Pawn PawnMov = (Pawn)PositionTab[HorizontalMovementN, VerticalMovement];
             PositionTab[HorizontalMovementN , VerticalMovement - PawnMov.DefineCollor] = null;
         }
+            PassarTabuleiro(1 , PositionTab , ColorPlayer , MovementPossible);
+            PassarTabuleiro(3 , PositionTab , ColorPlayer , MovementPossible);
+            return false;
+        }
 
-        // Após uma jogada válida, atualiza o En Passant e limpa os movimentos possíveis.
-        if(MovementPossible[HorizontalMovementN , VerticalMovement] != 0){
-        PassarTabuleiro(1 , PositionTab , ColorPlayer , MovementPossible);
-        PassarTabuleiro(3 , PositionTab , ColorPlayer , MovementPossible);}
+        else
+        {
+            PassarTabuleiro(1 , PositionTab , ColorPlayer , MovementPossible);
+            PassarTabuleiro(3 , PositionTab , ColorPlayer , MovementPossible);
+            Console.WriteLine("Digite uma posição valida");
+            return true;
+        }
 
         }      
     }

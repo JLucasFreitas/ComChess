@@ -111,5 +111,17 @@ namespace ComChess
 
         // Símbolo utilizado para representar o peão no tabuleiro
         public override char Symbol => 'P';
+
+
+        public override string PecaVisual
+        {
+            get
+            {
+            if(CollorPiece)
+                return "♟";
+            else
+                return "♙";
+            }
+        }
     }
 }

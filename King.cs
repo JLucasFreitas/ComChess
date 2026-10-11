@@ -107,5 +107,17 @@ namespace ComChess
 
         // Símbolo utilizado para representar o Rei no tabuleiro
         public override char Symbol => 'K';
+
+
+        public override string PecaVisual
+        {
+            get
+            {
+            if(CollorPiece)
+                return "♚";
+            else
+                return "♔";
+            }
+        }
     }
 }

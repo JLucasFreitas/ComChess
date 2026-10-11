@@ -23,21 +23,32 @@ namespace ComChess
         PlayerBlack.ColorPlayer = false;
     }
     
-    //Executa o turno do jodador branco
+    //Executa o turno do jogador branco
     void PlayerWhiteMov()
     {
+        bool JogadaValida;
+        do{
         PlayerWhite.SelectPiece(TabMov.PositionTab);
-        TabMov.Movement(0 ,  0 , PlayerWhite.SelectionHorizontalN , PlayerWhite.SelectionVertical , MovementPossible , PlayerWhite.ColorPlayer , PlayerWhite);
+        JogadaValida = TabMov.Movement(0 ,  0 , PlayerWhite.SelectionHorizontalN , PlayerWhite.SelectionVertical , MovementPossible , PlayerWhite.ColorPlayer , PlayerWhite);}
+        while(JogadaValida);
     }
 
     //Executa o turno do jodador preto
     void PlayerBlackMov()
     {
+        bool JogadaValida;
+        do{
         PlayerBlack.SelectPiece(TabMov.PositionTab);
-        TabMov.Movement(0 ,  0 , PlayerBlack.SelectionHorizontalN , PlayerBlack.SelectionVertical , MovementPossible , PlayerBlack.ColorPlayer , PlayerBlack);
+        JogadaValida = TabMov.Movement(0 ,  0 , PlayerBlack.SelectionHorizontalN , PlayerBlack.SelectionVertical , MovementPossible , PlayerBlack.ColorPlayer , PlayerBlack);}
+        while(JogadaValida);
     }
 
-    //Posiciona a posição inicial das peças e executa o fluxo da partida 
+    void SelecionarNome()
+    {
+        
+    }
+
+    //Posiciona as peças em suas posições iniciais e executa o fluxo da partida 
     void Fluxo()
     {
         PlayerWhiteMetodo();

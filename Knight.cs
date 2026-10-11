@@ -36,5 +36,17 @@ namespace ComChess
 
         // Símbolo utilizado para representar o Cavalo no tabuleiro
         public override char Symbol => 'N';
+
+
+        public override string PecaVisual
+        {
+            get
+            {
+            if(CollorPiece)
+                return "♞";
+            else
+                return "♘";
+            }
+        }
     }
 }

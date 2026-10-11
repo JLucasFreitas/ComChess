@@ -30,5 +30,16 @@ namespace ComChess
 
         // Símbolo utilizado para representar a Torre no tabuleiro
         public override char Symbol => 'R';
+
+        public override string PecaVisual
+        {
+            get
+            {
+            if(CollorPiece)
+                return "♜";
+            else
+                return "♖";
+            }
+        }
     }
 }

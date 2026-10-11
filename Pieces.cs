@@ -12,7 +12,8 @@ public abstract class Pieces
     public int VerticalPiece {get; set;}
     public bool CollorPiece {get; set;} //True = White | False = Black
     public bool MovementPast {get; set;} // True = já se moveu | False = ainda não se moveu
-    public abstract char Symbol {get ;}// Símbolo utilizado para representar a peça no tabuleiro
+    public abstract char Symbol {get ;}// Símbolo utilizado para representar a peça no historico
+    public abstract string PecaVisual{get ;}// Símbolo utilizado para representar a peça no tabuleiro
 
     // Converte a posição horizontal de letra para número
     void Trans()

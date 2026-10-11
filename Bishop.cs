@@ -29,5 +29,17 @@ namespace ComChess
 
         // Símbolo utilizado para representar o Bispo no tabuleiro
         public override char Symbol => 'B';
+
+
+        public override string PecaVisual
+        {
+            get
+            {
+            if(CollorPiece)
+                return "♝";
+            else
+                return "♗";
+            }
+        }
     }
 }
