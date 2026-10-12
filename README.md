@@ -52,9 +52,9 @@ dotnet run
 
 **Aplicação de terminal**
 
-- [ ] Pedir e guardar o nome dos dois jogadores no início
+- [x] Pedir e guardar o nome dos dois jogadores no início
 - [ ] Turnos alternados, começando pelo jogador das brancas
-- [ ] Jogadas no formato letra + número (por exemplo `e2`): escolher a peça e depois a casa de destino
+- [x] Jogadas no formato letra + número (por exemplo `e2`): escolher a peça e depois a casa de destino
 - [ ] Encerrar a partida por xeque-mate ou empate
 - [ ] Salvar cada lance de cada partida em um banco de dados SQL
 

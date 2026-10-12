@@ -26,26 +26,32 @@ namespace ComChess
     //Executa o turno do jogador branco
     void PlayerWhiteMov()
     {
-        bool JogadaValida;
+        bool JogadaInvalida;
         do{
         PlayerWhite.SelectPiece(TabMov.PositionTab);
-        JogadaValida = TabMov.Movement(0 ,  0 , PlayerWhite.SelectionHorizontalN , PlayerWhite.SelectionVertical , MovementPossible , PlayerWhite.ColorPlayer , PlayerWhite);}
-        while(JogadaValida);
+        JogadaInvalida = TabMov.Movement(0 ,  0 , PlayerWhite.SelectionHorizontalN , PlayerWhite.SelectionVertical , MovementPossible , PlayerWhite.ColorPlayer , PlayerWhite);}
+        while(JogadaInvalida);
     }
 
     //Executa o turno do jodador preto
     void PlayerBlackMov()
     {
-        bool JogadaValida;
+        bool JogadaInvalida;
         do{
         PlayerBlack.SelectPiece(TabMov.PositionTab);
-        JogadaValida = TabMov.Movement(0 ,  0 , PlayerBlack.SelectionHorizontalN , PlayerBlack.SelectionVertical , MovementPossible , PlayerBlack.ColorPlayer , PlayerBlack);}
-        while(JogadaValida);
+        JogadaInvalida = TabMov.Movement(0 ,  0 , PlayerBlack.SelectionHorizontalN , PlayerBlack.SelectionVertical , MovementPossible , PlayerBlack.ColorPlayer , PlayerBlack);}
+        while(JogadaInvalida);
     }
 
     void SelecionarNome()
     {
-        
+        PlayerWhite.SelectName(1);
+        PlayerBlack.SelectName(2);
+
+        while(string.Equals(PlayerWhite.NamePlayer, PlayerBlack.NamePlayer, StringComparison.OrdinalIgnoreCase)){
+            Console.WriteLine("Selecione um nome diferente");
+            PlayerBlack.SelectName(2);
+        }
     }
 
     //Posiciona as peças em suas posições iniciais e executa o fluxo da partida 
@@ -54,14 +60,18 @@ namespace ComChess
         PlayerWhiteMetodo();
         PlayerBlackMetodo();
 
+        SelecionarNome();
+
         TabMov.TabStart();
         TabMov.MostrarTabuleiro();
 
         while(true)
         {
+            Console.WriteLine($"Vez de {PlayerWhite.NamePlayer}");
             PlayerWhiteMov();
             TabMov.MostrarTabuleiro();
 
+            Console.WriteLine($"Vez de {PlayerBlack.NamePlayer}");
             PlayerBlackMov();
             TabMov.MostrarTabuleiro();
         }

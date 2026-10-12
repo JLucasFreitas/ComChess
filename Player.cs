@@ -15,6 +15,7 @@ public class Player
         public int HorizontalMovementN {get; set;}
         public string NamePlayer {get; set;}
         public string SelectPosition{get; set;}
+        public string MovementPosition{get; set;}
 
         // Lê a posição da peça que o jogador deseja selecionar e converte a coordenada horizontal de letra para número
         public void Select()
@@ -22,20 +23,28 @@ public class Player
             Console.WriteLine("Digite a posição da peça , no formato letra/número l0 , que você quer mecher");
             SelectPosition = Console.ReadLine();
 
-            if(SelectPosition.Length == 2)
+            if(SelectPosition == null){
+                Console.WriteLine("Digite uma posição não nula");
+                Select();
+            }
+
+            else if(SelectPosition.Length == 2)
             {
-                
+            int Horizontal = char.ToLower(SelectPosition[0]) - 'a';
+            int Vertical = SelectPosition[1] - '1';
 
-            char Horizontal = SelectPosition[0].ToLower();
-            char Vertical = SelectPosition[1];
+                // Verifica se a posição selecionada está dentro do tabuleiro
+                if(Horizontal >= 0 && Horizontal <= 7 && Vertical >= 0 && Vertical <= 7){
+                SelectionHorizontalN = Horizontal;
+                SelectionVertical = Vertical;}
 
-            SelectionHorizontalN = Horizontal - 'a';
-            SelectionVertical = int.Parse(Vertical) - 1;
-
-            // Verifica se a posição selecionada está dentro do tabuleiro
-            if(SelectionHorizontalN < 0 || SelectionHorizontalN > 7 || SelectionVertical < 0 || SelectionVertical > 7)
-            {
-                System.Console.WriteLine("Selecione uma posição válida");
+                else{
+                    Console.WriteLine("Digite uma posição que esteja dentro do tabuleiro");
+                    Select();
+                }
+            }
+            else{
+                Console.WriteLine("Digite a posição no formato LetraNumero Ex: e2");
                 Select();
             }
         }
@@ -43,19 +52,31 @@ public class Player
         // Lê a posição de destino escolhida pelo jogador e converte a coordenada horizontal de letra para número
         public void Play()
         {
-            System.Console.WriteLine("Digite a Horizontal da posição que você quer mexer");
-            HorizontalMovement = char.Parse(Console.ReadLine().ToLower());
+            Console.WriteLine("Digite a posição do tabuleiro , no formato letra/número l0 , para onde você quer mecher");
+            MovementPosition = Console.ReadLine();
 
-            System.Console.WriteLine("Digite a Vertical da posição que você quer mexer");
-            VerticalMovement = int.Parse(Console.ReadLine());
+            if(SelectPosition == null){
+                Console.WriteLine("Digite uma posição não nula");
+                Play();
+            }
 
-            HorizontalMovementN = HorizontalMovement - 'a';
-            VerticalMovement--;
-
-            // Verifica se a posição de destino está dentro do tabuleiro
-            if(HorizontalMovementN < 0 || HorizontalMovementN > 7 || VerticalMovement < 0 || VerticalMovement > 7)
+            else if(SelectPosition.Length == 2)
             {
-                System.Console.WriteLine("Selecione uma posição válida");
+            int Horizontal = char.ToLower(MovementPosition[0]) - 'a';
+            int Vertical = MovementPosition[1] - '1';
+
+                // Verifica se a posição selecionada está dentro do tabuleiro
+                if(Horizontal >= 0 && Horizontal <= 7 && Vertical >= 0 && Vertical <= 7){
+                HorizontalMovementN = Horizontal;
+                VerticalMovement = Vertical;}
+
+                else{
+                    Console.WriteLine("Digite uma posição que esteja dentro do tabuleiro");
+                    Play();
+                }
+            }
+            else{
+                Console.WriteLine("Digite a posição no formato LetraNumero Ex: e2");
                 Play();
             }
         }
@@ -65,7 +86,7 @@ public class Player
         {
             int SelectPiecePromotion = 0;
 
-            System.Console.WriteLine("Escolha a peça para qual você quer transformar 1 - Torre 2 - Bispo 3 - Cavalo 4 - Rainha");
+            System.Console.WriteLine("Escolha a peça para qual você quer transformar 1 - Torre | 2 - Bispo | 3 - Cavalo | 4 - Rainha");
 
             SelectPiecePromotion = int.Parse(Console.ReadLine());
 
@@ -105,6 +126,16 @@ public class Player
         }while(i == 1);
 
         }
+
+        public void SelectName(int NumeroPlayer)
+        {
+            Console.WriteLine("Digite o nome do jogador");
+            NamePlayer = Console.ReadLine();
+
+            if(string.IsNullOrWhiteSpace(NamePlayer)){
+                NamePlayer = $"Jogador {NumeroPlayer}";
+            }
+        } 
 
     }
 
